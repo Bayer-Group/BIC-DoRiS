@@ -112,7 +112,7 @@ You can install and load the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("bayer-group/doris")
+devtools::install_github("bayer-group/BIC-doris")
 library(doris)
 ```
 
