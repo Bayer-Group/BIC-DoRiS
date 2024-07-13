@@ -1,0 +1,13 @@
+Package: doris
+Type: Package
+Title: Dose response in subgroups
+Version: 0.0.2
+Author: Frauke Friedrichs, Steffen Jeske
+Maintainer: Bodo Kirsch <bodo.kirsch@bayer.com>
+Description: This shiny App enables interactive exploration of dose response in different subgroups. 
+    The response profile with regard to multiple endpoints can be visualised using spiderweb graphics, also knows as radar charts. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: TRUE
+Imports: shiny, shinyWidgets, bslib, shinyBS, DT, tidyr, dplyr
+NeedsCompilation: no
