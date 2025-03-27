@@ -5,7 +5,7 @@
 #' @export
 #' @importFrom shiny shinyApp runApp
 
-run_doris <- function(...) {
+run_doris <- function(host=NULL, port=NULL, ...) {
   doris_app <- shiny::shinyApp(ui = app_ui, server = app_server)
-  shiny::runApp(doris_app)
+  shiny::runApp(doris_app, host=host, port=port)
 }
