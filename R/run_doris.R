@@ -7,5 +7,7 @@
 
 run_doris <- function(host=NULL, port=NULL, ...) {
   doris_app <- shiny::shinyApp(ui = app_ui, server = app_server)
-  shiny::runApp(doris_app, host=host, port=port)
+  options(shiny.port = port)
+  options(shiny.host = host)
+  shiny::runApp(doris_app)
 }
