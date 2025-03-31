@@ -5,9 +5,16 @@
 #' @export
 #' @importFrom shiny shinyApp runApp
 
-run_doris <- function(host=NULL, port=NULL, ...) {
+run_doris <- function(host = NULL, port = NULL, ...) {
   doris_app <- shiny::shinyApp(ui = app_ui, server = app_server)
-  options(shiny.port = port)
-  options(shiny.host = host)
-  shiny::runApp(doris_app)
+
+  # Wenn lokal: runApp starten
+  if (interactive()) {
+    options(shiny.port = port)
+    options(shiny.host = host)
+    shiny::runApp(doris_app)
+  } else {
+    # Für Shiny Server: App-Objekt zurückgeben
+    doris_app
+  }
 }
