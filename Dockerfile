@@ -13,6 +13,7 @@ RUN apt-get update && apt upgrade -y && DEBIAN_FRONTEND=noninteractive apt-get i
     && rm -rf /var/lib/apt/lists/*
 # Install R package devtools
 RUN R -e "install.packages('devtools')"
+RUN R -e "install.packages('bsplus')"
 # Install the specified package from the given GitHub repository
 # Modify this to match your repo
 RUN R -e "devtools::install_github('Bayer-Group/BIC-DoRis')"
