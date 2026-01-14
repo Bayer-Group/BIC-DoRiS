@@ -3,7 +3,10 @@
 #' @param dorisGraphData data frame from preprocessing function
 #' @param lower lower y-axis limit
 #' @param upper upper y-axis limit
+#' @param subgroup character with selected subgroup variable name
+#' @param subgroup_level character with selected subgroup level name
 #' @param compare_pattern selected pattern
+#' @param add_subgroup logical for adding subgroup mean lines
 #' @param add_overall_mean_logical logical for adding mean lines
 #' @param add_complement_logical logical for adding complement lines
 #' @param add_other_subgroups_logical logical for adding other subgroups
@@ -13,8 +16,8 @@
 #' @param pattern_choice_auto best fitting pattern
 #' @param add_permutation_infos logical for permutation infos
 #' @param jitter_points logical for jitter points
-#' @param tmp_list
-#' @param index
+#' @param tmp_list automatic evaluation data
+#' @param index index variable
 #'
 
 dorisGraph_base2 <- function(
@@ -24,6 +27,7 @@ dorisGraph_base2 <- function(
   subgroup,
   subgroup_level,
   compare_pattern,
+  add_subgroup,
   add_overall_mean_logical,
   add_complement_logical,
   add_other_subgroups_logical,
@@ -279,24 +283,28 @@ dorisGraph_base2 <- function(
         )
        }
      }
-   }
-    mtext(
-      paste0("N=", tmp$N_overall),
-      side = 3,
-      at = i,
-      line = 2,
-      col = "#424242",
-      cex = 1
-    )
-    mtext(
-      paste0("n=", tmp$N_subgroup),
-      side = 3,
-      at = i,
-      line = 1,
-      col = "dodgerblue",
-      cex = 1
-    )
-    if(add_backgrounds_logical){
+     }
+    if (add_overall_mean_logical){
+      mtext(
+        paste0("N=", tmp$N_overall),
+        side = 3,
+        at = i,
+        line = 2,
+        col = "#424242",
+        cex = 1
+      )
+    }
+    if (add_subgroup) {
+      mtext(
+        paste0("n=", tmp$N_subgroup),
+        side = 3,
+        at = i,
+        line = 1,
+        col = "dodgerblue",
+        cex = 1
+      )
+    }
+    if (add_backgrounds_logical) {
     # if(compare_pattern == "overall mean") {
     #   truth_value <- tmp$truth_value_overall
     #   best_pattern <- paste(dorisGraphData$best_fit_overall, collapse = " ")
@@ -325,7 +333,7 @@ dorisGraph_base2 <- function(
       )
     }
   }
-  #}
+
    if (add_permutation_infos) {
     df <- Reduce(rbind,lapply(tmp_list$mean_list,function(x){x[index,]}))
      if (any(is.na(df))) {
@@ -359,52 +367,99 @@ dorisGraph_base2 <- function(
   }
 
 
+  # if (add_points_logical) {
+  #   #points_data
+  #   if (jitter_points) {
+  #     jitter_width <- diff(range(dorisGraphData$dose))/20
+  #     tmp <- points_data[points_data[,subgroup] != subgroup_level,]$dose
+  #     tmp_sub <- points_data[points_data[,subgroup] == subgroup_level,]$dose
+  #     for (i in dorisGraphData$dose) {
+  #       tmp[tmp == i & !is.na(tmp)] <- points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)] + seq(-jitter_width, jitter_width, length = length(points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)]))
+  #       tmp_sub[tmp_sub == i & !is.na(tmp_sub)] <- points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)] + seq(-jitter_width, jitter_width, length = length(points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)]))
+  #
+  #     }
+  #     points(
+  #       tmp,
+  #       points_data[points_data[,subgroup] != subgroup_level,]$targetVariable,
+  #       cex= 1,
+  #       col ="#08cf8690",
+  #       pch = 18
+  #     )
+  #     points(
+  #       tmp_sub,
+  #       points_data[points_data[,subgroup] == subgroup_level,]$targetVariable,
+  #       cex= 1,
+  #       col ="#1e90ff90",
+  #       pch = 18
+  #     )
+  #   } else {
+  #     points(
+  #       points_data[points_data[,subgroup] != subgroup_level,]$dose,
+  #       points_data[points_data[,subgroup] != subgroup_level,]$targetVariable,
+  #       cex= 1,
+  #       col ="#08cf8690",
+  #       pch = 18
+  #     )
+  #     points(
+  #       points_data[points_data[,subgroup] == subgroup_level,]$dose,
+  #       points_data[points_data[,subgroup] == subgroup_level,]$targetVariable,
+  #       cex= 1,
+  #       col ="#1e90ff90",
+  #       pch = 18
+  #     )
+  #   }
+  # }
   if (add_points_logical) {
     #points_data
     if (jitter_points) {
-      jitter_width <- diff(range(dorisGraphData$dose))/20
+
+      jitter_width <- diff(range(dorisGraphData$dose))/10
+
       tmp <- points_data[points_data[,subgroup] != subgroup_level,]$dose
       tmp_sub <- points_data[points_data[,subgroup] == subgroup_level,]$dose
+
       for (i in dorisGraphData$dose) {
-        tmp[tmp == i & !is.na(tmp)] <- points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)] + seq(-jitter_width, jitter_width, length = length(points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)]))
-        tmp_sub[tmp_sub == i & !is.na(tmp_sub)] <- points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)] + seq(-jitter_width, jitter_width, length = length(points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)]))
+        tmp[tmp == i & !is.na(tmp)] <- points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)] + seq(-jitter_width/8, jitter_width/8, length = length(points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)])) +(jitter_width/4)
+        tmp_sub[tmp_sub == i & !is.na(tmp_sub)] <- points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)] + seq(-jitter_width/8, jitter_width/8, length = length(points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)])) - (jitter_width/4)
 
       }
       points(
         tmp,
         points_data[points_data[,subgroup] != subgroup_level,]$targetVariable,
         cex= 1,
-        col ="#08cf86e2",
-        pch = 19
+        col ="#08cf8690",
+        pch = 18
       )
+
+
       points(
         tmp_sub,
         points_data[points_data[,subgroup] == subgroup_level,]$targetVariable,
         cex= 1,
-        col ="#1e90ffe2",
-        pch = 19
+        col ="#1e90ff90",
+        pch = 18
       )
     } else {
+      jitter_width <- diff(range(dorisGraphData$dose))/10
       points(
-        points_data[points_data[,subgroup] != subgroup_level,]$dose,
+        points_data[points_data[,subgroup] != subgroup_level,]$dose+(jitter_width/4),
         points_data[points_data[,subgroup] != subgroup_level,]$targetVariable,
         cex= 1,
-        col ="#08cf86e2",
-        pch = 19
+        col ="#08cf8690",
+        pch = 18
       )
       points(
-        points_data[points_data[,subgroup] == subgroup_level,]$dose,
+        points_data[points_data[,subgroup] == subgroup_level,]$dose-(jitter_width/4),
         points_data[points_data[,subgroup] == subgroup_level,]$targetVariable,
         cex= 1,
-        col ="#1e90ffe2",
-        pch = 19
+        col ="#1e90ff90",
+        pch = 18
       )
     }
   }
 
-
   #draw subgroup lines
-
+ if(add_subgroup) {
     lines(
       x = dorisGraphData$dose,
       y = dorisGraphData$mean_subgroup,
@@ -421,7 +476,7 @@ dorisGraph_base2 <- function(
       col ="#1e90ffe2",
       pch = 19
     )
-
+ }
    if (add_other_subgroups_logical) {
      for(i in 1:sum(startsWith(names(dorisGraphData),"N_other_"))) {
       lines(

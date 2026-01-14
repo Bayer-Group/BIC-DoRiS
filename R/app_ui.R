@@ -174,7 +174,7 @@ app_ui <- function(request) {
                     inputId = "compare_pattern",
                     label = "Compare to:",
                     choices = c("overall","subgroup complement"),
-                    selected = "subgroup complement",
+                    selected = "overall",
                     inline = FALSE
                   )
                 ),
@@ -514,7 +514,7 @@ app_ui <- function(request) {
       shiny::conditionalPanel(condition = "output.settings_flag == true",
       shiny::fluidRow(
         shiny::conditionalPanel(condition = "output.table_on_off == true",
-          shiny::column(6,
+          shiny::column(4,
             shiny::wellPanel(style = paste0("background-color: #fafafa; border-color: black; border: 5px; border-radius: 5px;"),
               shiny::conditionalPanel(condition = "output.settings_flag == true",
                 shiny::fluidRow(
@@ -556,14 +556,32 @@ app_ui <- function(request) {
           )
         ),
         shiny::conditionalPanel(condition = "output.graph_on_off == true",
-          shiny::column(6,
+          shiny::column(8,
             shiny::wellPanel(style = paste0("background-color: #fafafa; border-color: black; border: 5px; border-radius: 5px;"),
               shiny::conditionalPanel(condition = "output.settings_flag == true",
                 shiny::fluidRow(
-                  shiny::column(8,
+                  shiny::column(9,
+                    shiny::fluidRow(
+                      shiny::column(2,
+                        shiny::uiOutput("graphic_select_subgroup1")
+                      ),
+                      shiny::column(2,
+                        shiny::selectInput(
+                          inputId = "graphic_select_subgroup2",
+                          label = "Subgroup Level",
+                          choices = NULL,
+                          selected = NULL
+                        )
+                      )
+                    ),
                     shiny::plotOutput(
+                    #plotly::plotlyOutput(
                      "graphic_first_factor",
-                     width = "100%"
+                     width = "100%",
+                     height = "550px",
+                     hover = hoverOpts("plot_hover",
+                        delay = 300,delayType = "debounce")
+
                     ),
                     conditionalPanel(condition = "input.perform_permutation == true",
                       shiny::plotOutput(
@@ -572,36 +590,65 @@ app_ui <- function(request) {
                       )
                     )
                   ),
-                  shiny::column(4,
+
+                  shiny::column(3,
+                    tags$style(
+                      type = "text/css",
+                      ".label-default {background-color:black;}",
+                      ".label-primary {background-color:#1e90ff;}",
+                      ".label-success {background-color:#08cf86;}",
+                      ".label-info {background-color:#a6baaf;}",
+                      ".label-warning {background-color:#f5aa20;}",
+                    ),
+                    br(),
+                    br(),
+                    br(),
+                    br(),
+                    br(),
+                    shinyWidgets::materialSwitch(
+                      inputId = "add_overall_mean",
+                      label = HTML(paste("<p style = 'color:black;'> Overall Mean")),
+                      status ="default",
+                      right = TRUE,
+                      value = TRUE
+                    ),
+                    shinyWidgets::materialSwitch(
+                      inputId = "add_subgroup",
+                      label = HTML(paste0("<p style = 'color:#1e90ffe2'> Subgroup Mean </p>")),
+                      status ="primary",
+                      right = TRUE,
+                      value = TRUE
+                    ),
+                    shinyWidgets::materialSwitch(
+                      inputId = "add_complement",
+                      label = HTML(paste0("<p style = 'color:#08cf86'> Complement Mean </p>")),
+                      status ="success",
+                      right = TRUE,
+                      value = TRUE
+                    ),
+                    shinyWidgets::materialSwitch(
+                      inputId = "add_backgrounds",
+                      label = HTML(paste0("<p style = 'color:#f5aa20'> Show background(s) for the truth values </p>")),
+                      value = TRUE,
+                      right = TRUE,
+                      status = "warning"
+                    ),
+                    shinyWidgets::materialSwitch(
+                      inputId = "add_other_subgroups",
+                      label = HTML(paste0("<p style = 'color:#424242'> Show all other subgroup level(s) </p>")),
+                      value = FALSE,
+                      status = "info",
+                      right = TRUE
+                    ),
+                    shiny::uiOutput("hover_info")
+                  ),
+                  shiny::column(12,
                     tagList(
-                      shiny::uiOutput("graphic_select_subgroup1"),
-                      shiny::selectInput(
-                        inputId = "graphic_select_subgroup2",
-                        label = "subgroup level",
-                        choices = NULL,
-                        selected = NULL
+                      shiny::column(2,
+                        shiny::uiOutput("lower_y")
                       ),
-                      shiny::uiOutput("upper_y"),
-                      shiny::uiOutput("lower_y"),
-                      shiny::checkboxInput(
-                        inputId = "add_overall_mean",
-                        label = HTML(paste("<p style = 'color:black;'> Add overall mean")),
-                        value = TRUE
-                      ),
-                      shiny::checkboxInput(
-                        inputId = "add_complement",
-                        label = HTML(paste0("<p style = 'color:#08cf86'> Add subgroup complement line </p>")),
-                        value = FALSE
-                      ),
-                      shiny::checkboxInput(
-                        inputId = "add_other_subgroups",
-                        label = HTML(paste0("<p style = 'color:#424242'> Add for all other subgroup level(s) </p>")),
-                        value = FALSE
-                      ),
-                      shiny::checkboxInput(
-                        inputId = "add_backgrounds",
-                        label = HTML(paste0("<p style = 'color:#f5aa20'> Add background(s) for the truth values </p>")),
-                        value = FALSE
+                      shiny::column(2,
+                        shiny::uiOutput("upper_y")
                       ),
                       shiny::checkboxInput(
                         inputId = "add_points",

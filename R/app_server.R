@@ -9,17 +9,9 @@
 #' @import DT
 #' @import tidyr
 #' @import dplyr
-#' @noRd
 
-library(shiny)
-library(shinyWidgets)
-library(bslib)
-library(shinyBS)
-library(DT)
-library(tidyr)
-library(dplyr)
 
-#' server part of doris app
+# server part of doris app
 
 app_server <- function(input, output, session) {
 
@@ -235,7 +227,7 @@ app_server <- function(input, output, session) {
   output$graphic_select_subgroup1 <- shiny::renderUI({
     shiny::selectizeInput(
       inputId = "graphic_select_subgroup1",
-      label = "Subgroup factor",
+      label = "Subgroup",
       choices = input$select_Factors,
       multiple = TRUE,
       selected = input$select_Factors[1],
@@ -261,7 +253,7 @@ app_server <- function(input, output, session) {
     shiny::updateSelectInput(
       session,
       inputId = "graphic_select_subgroup2",
-      label = "subgroup level",
+      label = "Subgroup level",
       choices = choices,
       selected = selected
     )
@@ -774,6 +766,8 @@ app_server <- function(input, output, session) {
         delta = input$delta
       )
 
+      dorisGraphData_reac$val <- dorisGraphData
+
       point_dat <- cbind(Factor_reac,dose = doris_data()$dose,targetVariable = targetVariable_reac)#[cbind(Factor_reac,doris_data()$dose,targetVariable_reac)[,fac1] == lev1,]
 
       fac1 <- factors_and_levels()[1]
@@ -795,6 +789,7 @@ app_server <- function(input, output, session) {
         upper = input$upper_y,
         subgroup = fac1,
         subgroup_level = lev1,
+        add_subgroup = input$add_subgroup,
         add_complement_logical = input$add_complement,
         add_other_subgroups_logical = input$add_other_subgroups,
         add_overall_mean_logical = input$add_overall_mean,
@@ -811,6 +806,76 @@ app_server <- function(input, output, session) {
       }
     })
   })
+
+  #############
+  dorisGraphData_reac <- shiny::reactiveValues(val = NULL)
+
+  output$hover_info <- shiny::renderUI({
+    shiny::req(input$plot_hover)
+
+    plot_point <- dorisGraphData_reac$val
+
+    hover <- input$plot_hover
+
+    hover$mapping <- list(xintercept = "xintercept", x = "dose", y = c("mean"))
+
+    plot_point_long <- rbind(
+      plot_point %>%
+        dplyr::select(dose,N_overall, mean) %>%
+        dplyr::mutate(description = "Overall", col = "#000000"),
+      plot_point %>%
+        dplyr::select(dose, N_subgroup, mean_subgroup) %>%
+        dplyr::rename(mean = mean_subgroup, N_overall = N_subgroup) %>%
+        dplyr::mutate(description = "Subgroup", col = "#1e90ff"),
+      plot_point %>%
+        dplyr::select(dose, N_complement, mean_complement) %>%
+        dplyr::rename(mean = mean_complement, N_overall = N_complement) %>%
+        dplyr::mutate(description = "Complement", col = "#08cf86")
+    )
+
+    if (!is.null(input$plot_hover)) {
+      if (nrow(plot_point_long) > 0 ) {
+        point <- nearPoints(plot_point_long, hover)
+      }
+    }
+
+    #
+    #
+    # if (nrow(point) == 0) return(NULL)
+    #
+    # left_pct <- (hover$coords_img$x - hover$range$left) / (hover$range$right - hover$range$left)
+    # top_pct <- (hover$domain$top -  hover$y ) / (hover$domain$top - hover$domain$bottom)
+    #
+    # left_px <- ifelse(left_pct <= 0.75,
+    #                   20 + hover$range$left + left_pct * (hover$range$right - hover$range$left) / hover$img_css_ratio$x,
+    #                   - 175 + hover$range$left + left_pct * (hover$range$right - hover$range$left) / hover$img_css_ratio$x)
+    #
+    # top_px <- ifelse(top_pct <= 0.5,
+    #                  20 + hover$range$top + top_pct * (hover$range$bottom - hover$range$top),
+    #                  - 115 + hover$range$top + top_pct * (hover$range$bottom - hover$range$top))
+    # # style <- paste0("position:absolute; z-index:100;background-color: rgba(",grDevices::col2rgb(point$color)[1],",",grDevices::col2rgb(point$color)[2],",",grDevices::col2rgb(point$color)[3],",0.85); ",
+    # #                 "left:", left_px, "px; top:", top_px, "px; border: 0px;")
+    # point <- point[1,]
+    #
+    #
+    if(nrow(point)>0){
+    shiny::wellPanel(
+      # style = style,
+      shiny::p(
+        shiny::HTML(
+          paste0(
+          "<b style = 'color: #424242;'>", "Dose: ", point$dose,"</b>",
+          "<b style = 'color: ", point$col,";'>", "<br>",
+          "Mean (", point$description, "): ", round(point$mean,3), " ", "<br>",
+          "</b>", "<br>"
+          )
+        )
+      )
+    )
+      }
+  })
+
+  #############
 
   ## Histogram
   shiny::observe({
@@ -972,7 +1037,7 @@ app_server <- function(input, output, session) {
     shiny::numericInput(
       inputId = "lower_y",
       label = "Lower limit y:",
-      value = low_y,
+      value = round(low_y, 2),
       step = 0.1
     )
   })
@@ -982,7 +1047,7 @@ app_server <- function(input, output, session) {
     shiny::numericInput(
       inputId = "upper_y",
       label = "Upper limit y:",
-      value = upper_y,
+      value = round(upper_y,2),
       step = 0.1
     )
   })
