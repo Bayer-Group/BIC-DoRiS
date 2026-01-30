@@ -111,7 +111,7 @@ app_ui <- function(request) {
                     id = "dropdown_target",
                     text = HTML(
                       paste0("
-                      <h4> Target variable </h4>
+                      <h4> Target Variable </h4>
                       <h5> Please select one target variable for analysis with DoRiS, e.g an efficacy or safety endpoint you are interested in.
                       </h5>
 
@@ -318,7 +318,7 @@ app_ui <- function(request) {
                   shiny::column(10,
                     shiny::radioButtons(
                       inputId = "alpha_method",
-                      label = "Select method",
+                      label = "Select Method",
                       choices = c("Minimum", "Mean", "Weighted Mean"),
                       selected = "Weighted Mean",
                       inline = FALSE
@@ -562,10 +562,13 @@ app_ui <- function(request) {
                 shiny::fluidRow(
                   shiny::column(9,
                     shiny::fluidRow(
-                      shiny::column(2,
+                      shiny::column(4,
+                           shiny::htmlOutput("target_variable_name")
+                      ),
+                      shiny::column(4,
                         shiny::uiOutput("graphic_select_subgroup1")
                       ),
-                      shiny::column(2,
+                      shiny::column(4,
                         shiny::selectInput(
                           inputId = "graphic_select_subgroup2",
                           label = "Subgroup Level",

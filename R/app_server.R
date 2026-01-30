@@ -1131,6 +1131,9 @@ app_server <- function(input, output, session) {
     })
   })
 
+  output$target_variable_name <- shiny::renderText({
+    HTML(paste0("<b> Target Variable: <br> ",input$select_targetVariable,"</b>"))
+  })
   shiny::observeEvent(input$optionButton,{
      output$cont_option <- shiny::renderUI({
       list(
