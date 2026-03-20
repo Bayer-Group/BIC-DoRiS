@@ -796,15 +796,34 @@ app_server <- function(input, output, session) {
         return(NULL)
       }
 
+      if (input$pattern_choice == "automatic") {
+        tmp_list <- calc_evaluation_automatic()
+        tmp_list2 <- calc_permutation_automatic()
+      } else {
+        tmp_list <- calc_evaluation_manual()
+        tmp_list2 <- calc_permutation_manual()
+      }
+
+      pattern_for_graph <- pattern_reac$val
+      if (input$pattern_choice == "automatic" && !is.null(tmp_list)) {
+        rmean <- rownames(tmp_list$mean_list[[1]])
+        idx_pat <- which(paste0(fac1, ": ", lev1) == rmean)
+        if (length(idx_pat) == 1L) {
+          bp <- tmp_list$levels_and_pattern[idx_pat, "best_pattern", drop = TRUE]
+          if (!is.na(bp) && nzchar(as.character(bp))) {
+            pattern_for_graph <- as.character(bp)
+          }
+        }
+      }
       dorisGraphData <- doris_preprocessGraph(
         Factors = Factor_reac,
-        dose = doris_data()$dose,
+        dose = dose_reac(),
         targetVariable = targetVariable_reac,
         factor_selected = fac1,
         subgroup_selected = lev1,
         factor_selected2 = fac2,
         subgroup_selected2 = lev2,
-        pattern = pattern_reac$val,
+        pattern = pattern_for_graph,
         delta = input$delta
       )
 
@@ -815,13 +834,6 @@ app_server <- function(input, output, session) {
       fac1 <- factors_and_levels()[1]
       lev1 <- factors_and_levels()[2]
 
-      if (input$pattern_choice == "automatic") {
-        tmp_list <- calc_evaluation_automatic()
-        tmp_list2 <- calc_permutation_automatic()
-      } else {
-        tmp_list <- calc_evaluation_manual()
-        tmp_list2 <- calc_permutation_manual()
-      }
       if(!is.null(tmp_list)) {
       index <- which(paste0(fac1, ": ",lev1) == rownames(tmp_list$mean_list[[1]]))
 

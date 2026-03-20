@@ -13,7 +13,9 @@
 #' @param add_backgrounds_logical logical for background
 #' @param add_points_logical logical for adding points
 #' @param points_data raw data points
-#' @param pattern_choice_auto best fitting pattern
+#' @param pattern_choice_auto retained for compatibility;
+#'   truth-value backgrounds always follow \code{tmp$pattern} from preprocessing
+#'   (manual entry or automatic best pattern for the selected subgroup).
 #' @param add_permutation_infos logical for permutation infos
 #' @param jitter_points logical for jitter points
 #' @param tmp_list automatic evaluation data
@@ -40,6 +42,7 @@ dorisGraph_base2 <- function(
   tmp_list,
   index
 ) {
+  force(pattern_choice_auto)
 
   bar_width <- diff(range(dorisGraphData$dose))/100
   delta_width <- diff(range(dorisGraphData$dose))/35
@@ -61,229 +64,121 @@ dorisGraph_base2 <- function(
 
   #backgrounds:
   for (i in sort(unique(dorisGraphData$dose))) {
-    tmp <- dorisGraphData[dorisGraphData$dose == i,]
-
-     if (add_backgrounds_logical) {
-      if (pattern_choice_auto) {
-        if (tmp$best_fit_overall == "=") {
-          f_colZ <- grDevices::colorRamp(c("#f2f2f2","#f5aa20","#f2f2f2"))
-        } else if (tmp$best_fit_overall == "<") {
-          f_colZ <- grDevices::colorRamp(c("#f5aa20","#f2f2f2"))
-        } else if (tmp$best_fit_overall== ">") {
-          f_colZ <- grDevices::colorRamp(c("#f2f2f2","#f5aa20"))
-        } else {
-          print("error")
-        }
+    tmp <- dorisGraphData[dorisGraphData$dose == i, , drop = FALSE]
+    if (nrow(tmp) > 1L) {
+      oks <- !is.na(tmp$mean_subgroup)
+      if (any(oks)) {
+        tmp <- tmp[which(oks)[1L], , drop = FALSE]
       } else {
-        if (tmp$pattern == "=") {
-          f_colZ <- grDevices::colorRamp(c("#f2f2f2","#f5aa20","#f2f2f2"))
-        } else if (tmp$pattern == "<") {
-          f_colZ <- grDevices::colorRamp(c("#f5aa20","#f2f2f2"))
-        } else if (tmp$pattern == ">") {
-          f_colZ <- grDevices::colorRamp(c("#f2f2f2","#f5aa20"))
-        } else {
-          print("error")
-        }
+        tmp <- tmp[1L, , drop = FALSE]
       }
+    }
+
+    pcol <- if ("pattern" %in% names(tmp)) tmp$pattern[1L] else if ("pattern.x" %in% names(tmp)) tmp$pattern.x[1L] else NA
+    sym <- tryCatch(as.character(pcol), error = function(e) NA_character_)
+
+    if (isTRUE(add_backgrounds_logical) && !is.na(sym) && sym %in% c("=", "<", ">")) {
+      bg_ramp <- switch(
+        sym,
+        "=" = grDevices::colorRamp(c("#f2f2f2","#f5aa20","#f2f2f2")),
+        "<" = grDevices::colorRamp(c("#f5aa20","#f2f2f2")),
+        ">" = grDevices::colorRamp(c("#f2f2f2","#f5aa20"))
+      )
 
     if (compare_pattern == "overall") {
-      if (pattern_choice_auto) {
-        if (tmp$best_fit_overall == "=") {
-          seq_delta <- seq(
-            tmp$overall_delta_lower_equal,
-            tmp$overall_delta_upper_equal,
-            length.out = 501
+      seq_delta <- switch(
+        sym,
+        "=" = seq(tmp$overall_delta_lower_equal, tmp$overall_delta_upper_equal, length.out = 501L),
+        "<" = seq(tmp$overall_delta_lower_less, tmp$overall_delta_upper_less, length.out = 501L),
+        ">" = seq(tmp$overall_delta_lower_greater, tmp$overall_delta_upper_greater, length.out = 501L)
+      )
+      seq_delta <- switch(
+        sym,
+        "=" = seq(tmp$overall_delta_lower_equal, tmp$overall_delta_upper_equal, length.out = 501L),
+        "<" = seq(tmp$overall_delta_lower_less, tmp$overall_delta_upper_less, length.out = 501L),
+        ">" = seq(tmp$overall_delta_lower_greater, tmp$overall_delta_upper_greater, length.out = 501L)
+      )
+    } else {
+      seq_delta <- switch(
+        sym,
+        "=" = seq(tmp$complement_delta_lower_equal, tmp$complement_delta_upper_equal, length.out = 501L),
+        "<" = seq(tmp$complement_delta_lower_less, tmp$complement_delta_upper_less, length.out = 501L),
+        ">" = seq(tmp$complement_delta_lower_greater, tmp$complement_delta_upper_greater, length.out = 501L)
+      )
+    }
+
+      seq_delta <- sort(unique(c(seq_delta)))
+      seq_delta <- seq_delta[is.finite(seq_delta)]
+
+      if (length(seq_delta) >= 2L) {
+        in_y <- dplyr::between(seq_delta, lower, upper)
+        seq_delta2 <- seq_delta[in_y]
+        nr <- length(seq_delta2) - 1L
+        if (nr >= 1L) {
+          cols_grad <- grDevices::rgb(
+            bg_ramp(seq(0, 1, length.out = nr)),
+            maxColorValue = 255
           )
-        }
-        if (tmp$best_fit_overall == "<") {
-          seq_delta <- seq(
-            tmp$overall_delta_lower_less,
-            tmp$overall_delta_upper_less,
-            length.out = 501
-          )
-        }
-        if (tmp$best_fit_overall == ">") {
-          seq_delta <- seq(
-            tmp$overall_delta_lower_greater,
-            tmp$overall_delta_upper_greater,
-            length.out = 501
-          )
-        }
-      } else {
-        if (tmp$pattern == "=") {
-          seq_delta <- seq(
-            tmp$overall_delta_lower_equal,
-            tmp$overall_delta_upper_equal,
-            length.out = 501
-          )
-        }
-        if (tmp$pattern == "<") {
-          seq_delta <- seq(
-            tmp$overall_delta_lower_less,
-            tmp$overall_delta_upper_less,
-            length.out = 501
-          )
-        }
-        if (tmp$pattern == ">") {
-          seq_delta <- seq(
-            tmp$overall_delta_lower_greater,
-            tmp$overall_delta_upper_greater,
-            length.out = 501
+          graphics::rect(
+            xleft = i - bar_width,
+            xright = i + bar_width,
+            ybottom = seq_delta2[-1L],
+            ytop = seq_delta2[-length(seq_delta2)],
+            xpd = NA,
+            col = cols_grad,
+            border = NA
           )
         }
       }
-    } else {
-      if (pattern_choice_auto) {
-        if (tmp$best_fit_overall == "=") {
-          seq_delta <- seq(
-            tmp$complement_delta_lower_equal,
-            tmp$complement_delta_upper_equal,
-            length.out = 501
+
+      if (length(seq_delta) >= 1L) {
+        seq_last <- utils::tail(seq_delta, 1L)
+        graphics::rect(
+          xleft = i - bar_width,
+          xright = i + bar_width,
+          ybottom = lower,
+          ytop = max(seq_delta[1L], lower),
+          xpd = NA,
+          col = ifelse(sym == "<", "#f5aa20", "#f2f2f2"),
+          border = NA
+        )
+        graphics::rect(
+          xleft = i - bar_width,
+          xright = i + bar_width,
+          ybottom = min(seq_last, upper),
+          ytop = upper,
+          xpd = NA,
+          col = ifelse(sym == ">", "#f5aa20", "#f2f2f2"),
+          border = NA
+        )
+
+        if (sym == "=") {
+          segments(
+            x0 = i - delta_width,
+            x1 = i + delta_width,
+            y0 = c(seq_delta[1L], mean(seq_delta), seq_last),
+            y1 = c(seq_delta[1L], mean(seq_delta), seq_last),
+            col = c("#cccccc", "#d99802", "#cccccc"),
           )
-        }
-        if (tmp$best_fit_complement == "<") {
-          seq_delta <- seq(
-            tmp$complement_delta_lower_less,
-            tmp$complement_delta_upper_less,
-            length.out = 501
+        } else if (sym == "<") {
+          segments(
+            x0 = i - delta_width,
+            x1 = i + delta_width,
+            y0 = c(min(seq_delta), max(seq_delta)),
+            y1 = c(min(seq_delta), max(seq_delta)),
+            col = c("#d99802", "#cccccc")
           )
-        }
-        if (tmp$best_fit_complement == ">") {
-          seq_delta <- seq(
-            tmp$complement_delta_lower_greater,
-            tmp$complement_delta_upper_greater,
-            length.out = 501
-          )
-        }
-      } else {
-        if (tmp$pattern == "=") {
-          seq_delta <- seq(
-            tmp$complement_delta_lower_equal,
-            tmp$complement_delta_upper_equal,
-            length.out = 501
-          )
-        }
-        if (tmp$pattern == "<") {
-          seq_delta <- seq(
-            tmp$complement_delta_lower_less,
-            tmp$complement_delta_upper_less,
-            length.out = 501
-          )
-        }
-        if (tmp$pattern == ">") {
-          seq_delta <- seq(
-            tmp$complement_delta_lower_greater,
-            tmp$complement_delta_upper_greater,
-            length.out = 501
+        } else {
+          segments(
+            x0 = i - delta_width,
+            x1 = i + delta_width,
+            y0 = c(min(seq_delta), max(seq_delta)),
+            y1 = c(min(seq_delta), max(seq_delta)),
+            col = c("#cccccc", "#d99802")
           )
         }
       }
     }
-
-    seq_delta <- sort(seq_delta)
-    seq_delta2 <- seq_delta[between(seq_delta,lower,upper)]
-
-    graphics::rect(
-      xleft =  i-bar_width,
-      xright = i+bar_width,
-      ybottom = seq_delta2[-1],
-      ytop = seq_delta2[-length(seq_delta2)],
-      xpd = NA,
-      col = grDevices::rgb(f_colZ(seq(0, 1, length.out = 500)), maxColorValue = 255)[between(seq_delta,lower,upper)],
-      border = NA
-    )
-
-
-     if (!pattern_choice_auto) {
-    # lower part
-      graphics::rect(
-        xleft =  i-bar_width,
-        xright = i+bar_width,
-        ybottom = lower,
-        ytop = max(seq_delta[1],lower),
-        xpd = NA,
-        col = ifelse(tmp$pattern == "<","#f5aa20","#f2f2f2"),
-        border = NA
-      )
-      #upper part
-      graphics::rect(
-        xleft =  i-bar_width,
-        xright = i+bar_width,
-        ybottom = min(last(seq_delta),upper),
-        ytop = upper,
-        xpd = NA,
-        col = ifelse(tmp$pattern == ">", "#f5aa20","#f2f2f2"),
-        border = NA
-      )
-
-       if(tmp$pattern == "=") {
-         segments(
-          x0=  i-delta_width,
-          x1 = i+delta_width,
-          y0= c(seq_delta[1],mean(seq_delta),last(seq_delta)),
-          y1 = c(seq_delta[1],mean(seq_delta),last(seq_delta)),
-          col = c("#cccccc","#d99802","#cccccc"),
-        )
-       } else {
-         if(tmp$pattern == "<") {
-           col_ <- c("#d99802","#cccccc")
-         } else {
-            col_ <- c("#cccccc","#d99802")
-         }
-         segments(
-          x0=  i-delta_width,
-          x1 = i+delta_width,
-          y0= c(min(seq_delta), max(seq_delta)),
-          y1 = c(min(seq_delta), max(seq_delta)),
-          col =col_
-        )
-       }
-     } else {
-        # lower part
-      graphics::rect(
-        xleft =  i-bar_width,
-        xright = i+bar_width,
-        ybottom = lower,
-        ytop = max(seq_delta[1],lower),
-        xpd = NA,
-        col = ifelse(tmp$best_fit_overall == "<","#f5aa20","#f2f2f2"),
-        border = NA
-      )
-      #upper part
-      graphics::rect(
-        xleft =  i-bar_width,
-        xright = i+bar_width,
-        ybottom = min(last(seq_delta),upper),
-        ytop = upper,
-        xpd = NA,
-        col = ifelse(tmp$best_fit_overall == ">", "#f5aa20","#f2f2f2"),
-        border = NA
-      )
-
-       if(tmp$best_fit_overall == "=") {
-         segments(
-          x0=  i-bar_width,
-          x1 = i+bar_width,
-          y0= c(seq_delta[1],mean(seq_delta),last(seq_delta)),
-          y1 = c(seq_delta[1],mean(seq_delta),last(seq_delta)),
-          col = c("#cccccc","#d99802","#cccccc"),
-        )
-       } else {
-          if(tmp$best_fit_overall == "<") {
-           col_ <- c("#d99802","#cccccc")
-         } else {
-            col_ <- c("#cccccc","#d99802")
-         }
-         segments(
-          x0=  i-bar_width,
-          x1 = i+bar_width,
-          y0= c(min(seq_delta), max(seq_delta)),
-          y1 = c(min(seq_delta), max(seq_delta)),
-          col = col_
-        )
-       }
-     }
-     }
     if (add_overall_mean_logical){
       mtext(
         paste0("N=", tmp$N_overall),
@@ -304,24 +199,6 @@ dorisGraph_base2 <- function(
         cex = 1
       )
     }
-    if (add_backgrounds_logical) {
-    # if(compare_pattern == "overall mean") {
-    #   truth_value <- tmp$truth_value_overall
-    #   best_pattern <- paste(dorisGraphData$best_fit_overall, collapse = " ")
-    # } else {
-    #   truth_value <- tmp$truth_value_complement
-    #   best_pattern <- paste(dorisGraphData$best_fit_complement, collapse = " ")
-    # }
-
-    # mtext(
-    #   paste0("tv=", round(truth_value,2)),
-    #   side =  1,
-    #   at = i,
-    #   line = 2,
-    #   col = "#f5aa20",
-    #   cex = 1
-    # )
-    }
     if (add_complement_logical) {
       mtext(
         paste0("n=", tmp$N_complement),
@@ -334,20 +211,22 @@ dorisGraph_base2 <- function(
     }
   }
 
-   if (add_permutation_infos) {
-    df <- Reduce(rbind,lapply(tmp_list$mean_list,function(x){x[index,]}))
-     if (any(is.na(df))) {
-
-    } else {
-    f_colZ <- grDevices::colorRamp(c("#eeeeee","#f5aa20"))
-    col_df <- grDevices::rgb(f_colZ(tmp_list$tv_df[index,]), maxColorValue = 255)
-    for(i in 1:length(col_df)) {
-      lines(x = dorisGraphData$dose, y = df[i,], col = paste0(col_df, 40)[i],lwd = 1.5)
-    }
+  if (isTRUE(add_permutation_infos) && !is.null(tmp_list)) {
+    df <- Reduce(rbind, lapply(tmp_list$mean_list, function(x) x[index, ]))
+    if (!any(is.na(df))) {
+      perm_ramp <- grDevices::colorRamp(c("#eeeeee", "#f5aa20"))
+      col_df <- grDevices::rgb(perm_ramp(tmp_list$tv_df[index, ]), maxColorValue = 255)
+      for (j in seq_along(col_df)) {
+        lines(
+          x = dorisGraphData$dose,
+          y = df[j, ],
+          col = paste0(col_df, 40)[j],
+          lwd = 1.5
+        )
+      }
    }
   }
   # draw mean lines
-  #dorisGraphData$N_overall/  max(dorisGraphData$N_overall)
   if (add_overall_mean_logical) {
       lines(
         x = dorisGraphData$dose,
@@ -367,48 +246,6 @@ dorisGraph_base2 <- function(
   }
 
 
-  # if (add_points_logical) {
-  #   #points_data
-  #   if (jitter_points) {
-  #     jitter_width <- diff(range(dorisGraphData$dose))/20
-  #     tmp <- points_data[points_data[,subgroup] != subgroup_level,]$dose
-  #     tmp_sub <- points_data[points_data[,subgroup] == subgroup_level,]$dose
-  #     for (i in dorisGraphData$dose) {
-  #       tmp[tmp == i & !is.na(tmp)] <- points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)] + seq(-jitter_width, jitter_width, length = length(points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)]))
-  #       tmp_sub[tmp_sub == i & !is.na(tmp_sub)] <- points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)] + seq(-jitter_width, jitter_width, length = length(points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)]))
-  #
-  #     }
-  #     points(
-  #       tmp,
-  #       points_data[points_data[,subgroup] != subgroup_level,]$targetVariable,
-  #       cex= 1,
-  #       col ="#08cf8690",
-  #       pch = 18
-  #     )
-  #     points(
-  #       tmp_sub,
-  #       points_data[points_data[,subgroup] == subgroup_level,]$targetVariable,
-  #       cex= 1,
-  #       col ="#1e90ff90",
-  #       pch = 18
-  #     )
-  #   } else {
-  #     points(
-  #       points_data[points_data[,subgroup] != subgroup_level,]$dose,
-  #       points_data[points_data[,subgroup] != subgroup_level,]$targetVariable,
-  #       cex= 1,
-  #       col ="#08cf8690",
-  #       pch = 18
-  #     )
-  #     points(
-  #       points_data[points_data[,subgroup] == subgroup_level,]$dose,
-  #       points_data[points_data[,subgroup] == subgroup_level,]$targetVariable,
-  #       cex= 1,
-  #       col ="#1e90ff90",
-  #       pch = 18
-  #     )
-  #   }
-  # }
   if (add_points_logical) {
     #points_data
     if (jitter_points) {

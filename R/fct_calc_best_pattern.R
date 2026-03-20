@@ -133,6 +133,7 @@ calc_best_pattern <- function(
     }
   )
   best_pattern_and_truthValues <- do.call("rbind",best_pattern_and_truthValues)
+  rownames(best_pattern_and_truthValues) <- row.names(Subgroup_differences)
 
   return(best_pattern_and_truthValues)
 }
