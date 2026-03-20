@@ -22,10 +22,30 @@ doris_preprocessGraph <- function(
   delta
 ) {
 
-  dose <- as.numeric(dose)
   targetVariable <- as.numeric(targetVariable)
-  reduced_data <- cbind(Factors[c(factor_selected,factor_selected2)], dose, targetVariable)
-  pat <- unlist(strsplit(pattern, split=""))
+  # Keep dose level order (factor levels) to not build pattern rows from
+  # group_by/summarise row order
+  dose_fac <- if (is.factor(dose)) dose else as.factor(dose)
+  dose_numeric <- as.numeric(as.character(dose_fac))
+  reduced_data <- cbind(Factors[c(factor_selected,factor_selected2)], dose = dose_numeric, targetVariable)
+
+  pat <- unlist(strsplit(pattern, split = ""))
+  dose_per_level <- suppressWarnings(as.numeric(as.character(levels(dose_fac))))
+  if (anyNA(dose_per_level)) {
+    stop(
+      "Dose levels must be numeric (or numeric strings) for graphic preprocessing.",
+      call. = FALSE
+    )
+  }
+  if (length(pat) != length(dose_per_level)) {
+    stop(
+      "`pattern` must have exactly one character per dose level (same order as in evaluation).",
+      call. = FALSE
+    )
+  }
+  # One pattern per dose level, same order as levels(dose_fac).
+  summary_pattern <- tibble::tibble(dose = dose_per_level, pattern = pat)
+
 
   summary_overall <- reduced_data %>%
     dplyr::group_by(dose) %>%
@@ -63,8 +83,6 @@ doris_preprocessGraph <- function(
       mean_complement = mean(targetVariable, na.rm =TRUE),
       .groups = "keep"
     )
-
-  summary_pattern <- tibble(dose = summary_overall$dose, pattern =  pat)
 
   #merge all data sets
   summary <- merge(
@@ -159,7 +177,7 @@ doris_preprocessGraph <- function(
       best_fit_complement = case_when(
         less_complement == max(less_complement,great_complement,equal_complement) ~ ">",
         equal_complement == max(less_complement,great_complement,equal_complement) ~ "=",
-        great_complement == max(less_complement,great_complement,equal_overall) ~ "<",
+        great_complement == max(less_complement,great_complement,equal_complement) ~ "<",
       )
     )
 
@@ -184,5 +202,10 @@ doris_preprocessGraph <- function(
         Summary3 <- merge(Summary3,summary_others)
       }
   Summary3[,startsWith(names(Summary3),"N_other")][is.na(Summary3[,startsWith(names(Summary3),"N_other")])] <- 0
+  # Fix merging problems by renaming pattern.x back to pattern
+  if (!"pattern" %in% names(Summary3) && "pattern.x" %in% names(Summary3)) {
+    Summary3$pattern <- Summary3$pattern.x
+  }
+
   return(Summary3)
 }

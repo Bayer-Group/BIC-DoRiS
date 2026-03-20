@@ -133,6 +133,8 @@ calc_best_pattern <- function(
     }
   )
   best_pattern_and_truthValues <- do.call("rbind",best_pattern_and_truthValues)
+  # Use row names used by mean_list with levels_and_pattern.
+  rownames(best_pattern_and_truthValues) <- row.names(Subgroup_differences)
 
   return(best_pattern_and_truthValues)
 }
