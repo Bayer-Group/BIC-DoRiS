@@ -409,33 +409,75 @@ app_server <- function(input, output, session) {
       }
     }
     if (!is.null(tmp_test)) {
-      rownames(tmp_test$mean_list[[1]])
-
-      tmp3_test <- as.data.frame(
-        cbind(
-          paste0(rownames(tmp_test$mean_list[[1]])),
-          round(tmp_test$tv_df,3),
-          round(tmp_test$tv_list[[1]],3)
+      rn_eval <- rownames(tmp_test$mean_list[[1]])
+      dose_cols <- paste0("dose : ", round(as.numeric(levels(dose_reac())), 4))
+      dose_cols_perm <- paste0("dose : ", levels(dose_reac()))
+      if (input$pattern_choice == "automatic") {
+        bp_col <- as.character(
+          tmp_test$levels_and_pattern[rn_eval, "best_pattern", drop = TRUE]
         )
-      )
-      colnames(tmp3_test) <- c("subgroups:levels", "total truth values", paste0("dose : ",round(as.numeric(levels(dose_reac())),4)))
+      }
 
-
-      if (input$perform_permutation) {
-        if (!is.null(tmp_test2)) {
+      if (input$perform_permutation && !is.null(tmp_test2)) {
         pval <- dorisCalcPvalue(
-           tmp_list  = tmp_test2,
-           truth_value = tmp_test$tv_df
+          tmp_list = tmp_test2,
+          truth_value = tmp_test$tv_df
         )
-        tmp3_test <- as.data.frame(
-        cbind(
-          paste0(rownames(tmp_test$mean_list[[1]])),
-          round(pval,4),
-          round(tmp_test$tv_df,3),
-          round(tmp_test$tv_list[[1]],3)
+        if (input$pattern_choice == "automatic") {
+          tmp3_test <- as.data.frame(
+            cbind(
+              paste0(rn_eval),
+              bp_col,
+              round(pval, 4),
+              round(tmp_test$tv_df, 3),
+              round(tmp_test$tv_list[[1]], 3)
+            ),
+            stringsAsFactors = FALSE
           )
-        )
-        colnames(tmp3_test) <- c("subgroups:levels","p-value", "total truth values", paste0("dose : ",levels(dose_reac())))
+          colnames(tmp3_test) <- c(
+            "subgroups:levels", "best pattern", "p-value",
+            "total truth values", dose_cols_perm
+          )
+        } else {
+          tmp3_test <- as.data.frame(
+            cbind(
+              paste0(rn_eval),
+              round(pval, 4),
+              round(tmp_test$tv_df, 3),
+              round(tmp_test$tv_list[[1]], 3)
+            )
+          )
+          colnames(tmp3_test) <- c(
+            "subgroups:levels", "p-value",
+            "total truth values", dose_cols_perm
+          )
+        }
+      } else {
+        if (input$pattern_choice == "automatic") {
+          tmp3_test <- as.data.frame(
+            cbind(
+              paste0(rn_eval),
+              bp_col,
+              round(tmp_test$tv_df, 3),
+              round(tmp_test$tv_list[[1]], 3)
+            ),
+            stringsAsFactors = FALSE
+          )
+          colnames(tmp3_test) <- c(
+            "subgroups:levels", "best pattern",
+            "total truth values", dose_cols
+          )
+        } else {
+          tmp3_test <- as.data.frame(
+            cbind(
+              paste0(rn_eval),
+              round(tmp_test$tv_df, 3),
+              round(tmp_test$tv_list[[1]], 3)
+            )
+          )
+          colnames(tmp3_test) <- c(
+            "subgroups:levels", "total truth values", dose_cols
+          )
         }
       }
 
