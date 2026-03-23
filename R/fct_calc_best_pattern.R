@@ -119,11 +119,7 @@ calc_best_pattern <- function(
     function(y) {
       if(all(!is.na(y))) {
         data.frame(best_pattern = paste(
-          rownames(y)[
-            apply(y, 2, function(x) {
-              unlist(which(!is.na(suppressWarnings(match(x,max(x,na.rm = TRUE))))))
-            })
-          ]
+          rownames(y)[apply(y, 2, which.max)]
           , collapse = ""
         )
         )
