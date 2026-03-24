@@ -108,14 +108,22 @@ dorisGraph_base2 <- function(
       seq_delta <- sort(unique(c(seq_delta)))
       seq_delta <- seq_delta[is.finite(seq_delta)]
 
+      # Truth-value background colours must match the full fuzzy-logic band
+      # (seq_delta), not be re-scaled to the visible ylim. Colour grading
+      # would appear at the wrong y whenever the plot window cuts off part of the band.
       if (length(seq_delta) >= 2L) {
+        n_full <- length(seq_delta)
+        # One ramp position per interval between consecutive seq_delta values
+        ramp_t <- seq(0, 1, length.out = n_full - 1L)
         in_y <- dplyr::between(seq_delta, lower, upper)
         seq_delta2 <- seq_delta[in_y]
         # nr rectangles need nr gradient stops (avoid length mismatch vs fixed 500).
         nr <- length(seq_delta2) - 1L
         if (nr >= 1L) {
+          idx_first <- which(in_y)[1L]
+          k_interval <- idx_first + seq_len(nr) - 1L
           cols_grad <- grDevices::rgb(
-            bg_ramp(seq(0, 1, length.out = nr)),
+            bg_ramp(ramp_t[k_interval]),
             maxColorValue = 255
           )
           graphics::rect(
