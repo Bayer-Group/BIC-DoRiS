@@ -115,6 +115,7 @@ calc_truth_values <- function(
 
     if (length(tmp) == 0) {
       truthValues_per_dose[j,] <- rep(NA,ncol(alltvmatr[[j]]))
+      tv <- NA
     } else {
       #method
       truthValues_per_dose[j,] <- tmp
