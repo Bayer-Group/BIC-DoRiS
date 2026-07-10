@@ -44,7 +44,7 @@ doris_preprocessGraph <- function(
   complement_data <- reduced_data %>%
     dplyr::filter(!!rlang::sym(factor_selected) != subgroup_selected) %>%
     dplyr::filter(!is.na(targetVariable))
-  if (!is.null(subgroup_selected2) & !is.null(factor_selected2)) {
+  if (!is.null(subgroup_selected2) && !is.null(factor_selected2)) {
     filtered_data <- filtered_data %>%
       dplyr::filter(!!rlang::sym(factor_selected2) == subgroup_selected2)
     complement_data <- reduced_data %>%
@@ -177,12 +177,12 @@ doris_preprocessGraph <- function(
     factor_selected,
     factor_selected2
   )])
-  for (i in 1:nrow(other_subgroups)) {
+  for (i in seq_len(nrow(other_subgroups))) {
     other_subgroup <- reduced_data %>%
       dplyr::filter(
         !!rlang::sym(colnames(other_subgroups)[1]) == other_subgroups[i, 1]
       )
-    if (!is.null(subgroup_selected2) & !is.null(factor_selected2)) {
+    if (!is.null(subgroup_selected2) && !is.null(factor_selected2)) {
       other_subgroup <- other_subgroup %>%
         dplyr::filter(
           !!rlang::sym(colnames(other_subgroups)[2]) == other_subgroups[i, 2]

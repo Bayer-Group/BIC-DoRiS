@@ -344,13 +344,13 @@ dorisGraph_base2 <- function(
         x[index, ]
       })
     )
-    if (any(is.na(df))) {} else {
+    if (anyNA(df)) {} else {
       f_colZ <- grDevices::colorRamp(c("#eeeeee", "#f5aa20"))
       col_df <- grDevices::rgb(
         f_colZ(tmp_list$tv_df[index, ]),
         maxColorValue = 255
       )
-      for (i in 1:length(col_df)) {
+      for (i in seq_along(col_df)) {
         lines(
           x = dorisGraphData$dose,
           y = df[i, ],
