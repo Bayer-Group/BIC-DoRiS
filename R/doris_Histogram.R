@@ -9,7 +9,7 @@ dorisHistogram <- function(
   total_truth_val,
   index
 ) {
-  if (is.numeric(index) & length(index) > 0) {
+  if (is.numeric(index) && length(index) > 0) {
     f_colZ <- grDevices::colorRamp(c("#f2f2f2", "#f5aa20"))
     par(mfrow = c(1, 1), mar = c(4, 4, 0.5, 0.5))
     hist(

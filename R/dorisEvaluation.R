@@ -91,11 +91,11 @@ dorisEvaluation <- function(
   if (method == "Minimum") {
     stv <- apply(DTV, 1, min)
   } else if (method == "Sum") {
-    stv <- apply(DTV, 1, sum)
+    stv <- rowSums(DTV)
   } else if (method == "Mean") {
-    stv <- apply(DTV, 1, mean)
+    stv <- rowMeans(DTV)
   } else if (method == "Weighted Mean") {
-    stv <- apply(DTV, 1, mean)
+    stv <- rowMeans(DTV)
   }
 
   ### pattern matching decision

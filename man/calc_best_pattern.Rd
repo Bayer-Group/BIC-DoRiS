@@ -9,7 +9,7 @@ calc_best_pattern(
   targetVariable,
   dose,
   delta,
-  order = 1:nrow(Factors),
+  order = seq_len(nrow(Factors)),
   compare_pattern
 )
 }

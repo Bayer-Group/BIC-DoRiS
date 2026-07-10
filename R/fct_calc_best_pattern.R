@@ -12,12 +12,12 @@ calc_best_pattern <- function(
   targetVariable,
   dose,
   delta,
-  order = 1:nrow(Factors),
+  order = seq_len(nrow(Factors)),
   compare_pattern
 ) {
   dose_means <- tapply(targetVariable, dose, mean, na.rm = TRUE)
   if (is.factor(dose)) {
-    pattern_length <- length(levels(dose))
+    pattern_length <- nlevels(dose)
   } else {
     pattern_length <- length(unique(dose))
   }
@@ -117,7 +117,7 @@ calc_best_pattern <- function(
   )
 
   best_pattern_and_truthValues <- lapply(alltvmatr, function(y) {
-    if (all(!is.na(y))) {
+    if (!anyNA(y)) {
       data.frame(
         best_pattern = paste(
           rownames(y)[

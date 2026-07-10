@@ -79,7 +79,7 @@ dorisAutoPattern <- function(
         targetVariable,
         dose,
         delta,
-        order = 1:nrow(Factors),
+        order = seq_len(nrow(Factors)),
         compare_pattern = compare_pattern
       )
     } else if (pattern_choice == "manual") {
@@ -157,7 +157,7 @@ dorisAutoPattern <- function(
       tmp_tv_list[[1]] <- tmp_res$`tv dataframe`
     }
     index <- apply(tmp_tv_list[[1]], 1, function(x) {
-      any(is.na(x))
+      anyNA(x)
     })
     tmp_tv[index] <- NA
     return(
