@@ -3,3 +3,8 @@
 ^[.]?air[.]toml$
 ^\.vscode$
 ^\.github$
+^\.dev$
+^[.]?Dockerfile$
+^[.]?requirements[.]txt$
+
+
