@@ -1,3 +1,6 @@
+^renv$
+^renv\.lock$
+^requirements\.txt$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^[.]?air[.]toml$
@@ -8,3 +11,6 @@
 ^[.]?requirements[.]txt$
 
 
+^app\.R$
+^rsconnect$
+^\.rscignore$
