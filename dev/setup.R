@@ -37,6 +37,7 @@ usethis::use_package("dplyr", type = "Imports")
 # usethis::use_version("dev")
 
 # Add air GitHub actions
+usethis::use_github_action()
 usethis::use_github_action(
   url = "https://github.com/posit-dev/setup-air/blob/main/examples/format-check.yaml"
 )

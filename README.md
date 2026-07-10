@@ -1,5 +1,9 @@
 # DoRiS - Dose Response in Subgroups
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 ### Intention
 One dose fits all? Not necessarily! There might not always be a single dose 
 level that is adequately safe and effective in all patients. For some drugs 
