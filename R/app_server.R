@@ -3,7 +3,6 @@
 #' @param input,output,session Internal parameters for Shiny. DO NOT REMOVE.
 #' @import shiny
 #' @import shinyWidgets
-#' @import bslib
 #' @import shinyBS
 #' @import tidyr
 #' @import dplyr

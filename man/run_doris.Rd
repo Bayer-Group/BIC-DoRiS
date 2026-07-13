@@ -7,6 +7,10 @@
 run_doris(host = NULL, port = NULL, ...)
 }
 \arguments{
+\item{host}{host name (see [shiny::runApp()])}
+
+\item{port}{port number (see [shiny::runApp()])}
+
 \item{...}{A series of options to be used inside the app.}
 }
 \description{

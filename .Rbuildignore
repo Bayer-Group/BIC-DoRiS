@@ -1,6 +1,7 @@
 ^renv$
 ^renv\.lock$
 ^requirements\.txt$
+^R/_disable_autoload\.R$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^[.]?air[.]toml$

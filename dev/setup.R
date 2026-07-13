@@ -6,7 +6,7 @@ usethis::use_package("R", type = "Depends", min_version = "4.1")
 # Imports
 usethis::use_package("shiny", type = "Imports")
 usethis::use_package("shinyWidgets", type = "Imports")
-usethis::use_package("bslib", type = "Imports")
+# usethis::use_package("bslib", type = "Imports")
 usethis::use_package("shinyBS", type = "Imports")
 usethis::use_package("DT", type = "Imports")
 usethis::use_package("tidyr", type = "Imports")

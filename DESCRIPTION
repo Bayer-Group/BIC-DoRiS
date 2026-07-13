@@ -12,7 +12,6 @@ LazyData: TRUE
 Imports: 
     shiny,
     shinyWidgets,
-    bslib,
     shinyBS,
     DT,
     tidyr,
