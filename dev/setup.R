@@ -13,6 +13,12 @@ usethis::use_package("tidyr", type = "Imports")
 usethis::use_package("dplyr", type = "Imports")
 usethis::use_package("golem", type = "Imports")
 
+usethis::use_package("bsplus", type = "Imports")
+usethis::use_package("config", type = "Imports")
+usethis::use_package("haven", type = "Imports")
+usethis::use_package("plyr", type = "Imports")
+usethis::use_package("rlang", type = "Imports")
+
 
 # Suggests
 usethis::use_package("cli", type = "Suggests")

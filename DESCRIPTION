@@ -18,9 +18,13 @@ Imports:
     tidyr,
     dplyr,
     pkgload,
-    golem
+    golem,
+    bsplus,
+    config,
+    rlang,
+    haven,
+    plyr
 NeedsCompilation: no
-RoxygenNote: 7.3.3
 Depends: 
     R (>= 4.1)
 Suggests: 
@@ -34,3 +38,4 @@ Suggests:
     usethis
 Language: en-US
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

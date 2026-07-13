@@ -1,12 +1,10 @@
 #' The application server-side
 #'
-#' @param input,output,session Internal parameters for {shiny}.
-#'     DO NOT REMOVE.
+#' @param input,output,session Internal parameters for Shiny. DO NOT REMOVE.
 #' @import shiny
 #' @import shinyWidgets
 #' @import bslib
 #' @import shinyBS
-#' @import DT
 #' @import tidyr
 #' @import dplyr
 
@@ -312,7 +310,7 @@ app_server <- function(input, output, session) {
   output$DT_eval <- NULL
 
   shiny::observeEvent(input$submit, {
-    output$overview_table <- DT::renderDataTable({
+    output$overview_table <- DT::renderDT({
       shiny::req(doris_data())
       shiny::req(dose_reac())
 
@@ -338,7 +336,7 @@ app_server <- function(input, output, session) {
       }
     })
 
-    output$SGM <- DT::renderDataTable({
+    output$SGM <- DT::renderDT({
       shiny::req(doris_data())
       shiny::req(dose_reac())
 
@@ -366,7 +364,7 @@ app_server <- function(input, output, session) {
       )
     })
 
-    output$DSC <- DT::renderDataTable({
+    output$DSC <- DT::renderDT({
       shiny::req(doris_data())
       shiny::req(dose_reac())
 
@@ -408,7 +406,7 @@ app_server <- function(input, output, session) {
       calc_permutation_automatic()
     })
 
-    output$DT_eval <- DT::renderDataTable({
+    output$DT_eval <- DT::renderDT({
       #requirements
       shiny::req(doris_data())
       shiny::req(dose_reac())
@@ -497,9 +495,9 @@ app_server <- function(input, output, session) {
           filter = 'top',
           selection = 'single'
         ) %>%
-          formatStyle(
+          DT::formatStyle(
             'total truth values',
-            backgroundColor = styleInterval(
+            backgroundColor = DT::styleInterval(
               seq(0, 1, by = 0.05),
               grDevices::rgb(
                 f_colZ(seq(0, 1, length.out = 22)),
@@ -615,7 +613,7 @@ app_server <- function(input, output, session) {
     )
   })
 
-  output$DTV <- DT::renderDataTable({
+  output$DTV <- DT::renderDT({
     shiny::req(doris_data())
     shiny::req(Factor_reac())
     shiny::req(dose_reac())
@@ -642,7 +640,7 @@ app_server <- function(input, output, session) {
     )
   })
 
-  output$stv_pmd <- DT::renderDataTable({
+  output$stv_pmd <- DT::renderDT({
     shiny::req(doris_data())
     shiny::req(Factor_reac())
     shiny::req(dose_reac())
@@ -666,10 +664,10 @@ app_server <- function(input, output, session) {
     DT::datatable(
       round(tmp3, 3)
     ) %>%
-      formatStyle(
+      DT::formatStyle(
         'V2',
         target = "row",
-        backgroundColor = styleEqual(c(1, 0), c('#c8ff9e', '#ffa1a4'))
+        backgroundColor = DT::styleEqual(c(1, 0), c('#c8ff9e', '#ffa1a4'))
       )
   })
 
@@ -1176,7 +1174,7 @@ app_server <- function(input, output, session) {
     )
   })
 
-  output$dist <- shiny::renderDataTable(
+  output$dist <- DT::renderDT(
     as.data.frame(table(shiny::req(dorisDist())))
   )
 
