@@ -249,6 +249,76 @@
         "RemoteSha": "0.1-6"
       }
     },
+    "bit": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "bit",
+        "Title": "Classes and Methods for Fast Memory-Efficient Boolean Selections",
+        "Version": "4.6.0",
+        "Authors@R": "c(\n    person(\"Michael\", \"Chirico\", email = \"MichaelChirico4@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Jens\", \"Oehlschlägel\", role = \"aut\"),\n    person(\"Brian\", \"Ripley\", role = \"ctb\")\n  )",
+        "Depends": "R (>= 3.4.0)",
+        "Suggests": "testthat (>= 3.0.0), roxygen2, knitr, markdown, rmarkdown,\nmicrobenchmark, bit64 (>= 4.0.0), ff (>= 4.0.0)",
+        "Description": "Provided are classes for boolean and skewed boolean vectors,\n    fast boolean methods, fast unique and non-unique integer sorting,\n    fast set operations on sorted and unsorted sets of integers, and\n    foundations for ff (range index, compression, chunked processing).",
+        "License": "GPL-2 | GPL-3",
+        "LazyLoad": "yes",
+        "ByteCompile": "yes",
+        "Encoding": "UTF-8",
+        "URL": "https://github.com/r-lib/bit",
+        "VignetteBuilder": "knitr, rmarkdown",
+        "RoxygenNote": "7.3.2",
+        "Config/testthat/edition": "3",
+        "NeedsCompilation": "yes",
+        "Packaged": "2025-03-05 07:18:45 UTC; michael",
+        "Author": "Michael Chirico [aut, cre],\n  Jens Oehlschlägel [aut],\n  Brian Ripley [ctb]",
+        "Maintainer": "Michael Chirico <MichaelChirico4@gmail.com>",
+        "Repository": "RSPM",
+        "Date/Publication": "2025-03-06 10:50:01 UTC",
+        "Built": "R 4.5.0; x86_64-pc-linux-gnu; 2025-12-02 12:21:29 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "bit",
+        "RemoteRef": "bit",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "4.6.0"
+      }
+    },
+    "bit64": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "bit64",
+        "Title": "A S3 Class for Vectors of 64bit Integers",
+        "Version": "4.8.2",
+        "Authors@R": "c(\n    person(\"Michael\", \"Chirico\", email=\"michaelchirico4@gmail.com\", role=c(\"aut\", \"cre\")),\n    person(\"Jens\", \"Oehlschlägel\", role=\"aut\"),\n    person(\"Leonardo\", \"Silvestri\", role=\"ctb\"),\n    person(\"Ofek\", \"Shilon\", role=\"ctb\"),\n    person(\"Christian\", \"Ullerich\", role=\"ctb\")\n  )",
+        "Depends": "R (>= 3.5.0)",
+        "Description": "\n  Package 'bit64' provides serializable S3 atomic 64bit (signed) integers.\n  These are useful for handling database keys and exact counting in +-2^63.\n  WARNING: do not use them as replacement for 32bit integers, integer64 are not\n  supported for subscripting by R-core and they have different semantics when\n  combined with double, e.g. integer64 + double => integer64.\n  Class integer64 can be used in vectors, matrices, arrays and data.frames.\n  Methods are available for coercion from and to logicals, integers, doubles,\n  characters and factors as well as many elementwise and summary functions.\n  Many fast algorithmic operations such as 'match' and 'order' support inter-\n  active data exploration and manipulation and optionally leverage caching.",
+        "License": "GPL-2 | GPL-3",
+        "LazyLoad": "yes",
+        "ByteCompile": "yes",
+        "URL": "https://github.com/r-lib/bit64, https://bit64.r-lib.org",
+        "Encoding": "UTF-8",
+        "Imports": "bit (>= 4.0.0), graphics, methods, stats, utils",
+        "Suggests": "patrick (>= 0.3.0), testthat (>= 3.3.0), withr",
+        "Config/testthat/edition": "3",
+        "Config/Needs/development": "patrick, testthat",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "RoxygenNote": "7.3.3",
+        "NeedsCompilation": "yes",
+        "Packaged": "2026-05-19 05:37:05 UTC; chiricom",
+        "Author": "Michael Chirico [aut, cre],\n  Jens Oehlschlägel [aut],\n  Leonardo Silvestri [ctb],\n  Ofek Shilon [ctb],\n  Christian Ullerich [ctb]",
+        "Maintainer": "Michael Chirico <michaelchirico4@gmail.com>",
+        "Repository": "RSPM",
+        "Date/Publication": "2026-05-19 09:40:02 UTC",
+        "Built": "R 4.5.0; x86_64-pc-linux-gnu; 2026-05-20 05:21:39 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "bit64",
+        "RemoteRef": "bit64",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "4.8.2"
+      }
+    },
     "brew": {
       "Source": "CRAN",
       "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
@@ -351,6 +421,39 @@
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu",
         "RemoteSha": "0.11.0"
+      }
+    },
+    "bsplus": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "bsplus",
+        "Type": "Package",
+        "Title": "Adds Functionality to the R Markdown + Shiny Bootstrap Framework",
+        "Version": "0.1.5",
+        "Authors@R": "c(\n    person(\n      given = \"Ian\",\n      family = \"Lyttle\",\n      email = \"ijlyttle@me.com\",\n      role = c(\"aut\", \"cre\"),\n      comment = c(ORCID = \"0000-0001-9962-4849\"),\n    ),\n    person(given = \"Alex\", family = \"Shum\", email = \"alex@ALShum.com\", role = c(\"ctb\")),\n    person(given = \"Emerson\", family = \"Berry\", email = \"berrye123@gmail.com\", role = c(\"ctb\"))\n  )",
+        "Description": "The Bootstrap framework lets you add some JavaScript functionality to your web site by\n  adding attributes to your HTML tags - Bootstrap takes care of the JavaScript\n  <https://getbootstrap.com/docs/3.3/javascript/>. If you are using R Markdown or Shiny, you can\n  use these functions to create collapsible sections, accordion panels, modals, tooltips,\n  popovers, and an accordion sidebar framework (not described at Bootstrap site).\n  Please note this package was designed for Bootstrap 3.3.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://ijlyttle.github.io/bsplus/,\nhttps://github.com/ijlyttle/bsplus",
+        "Depends": "R (>= 3.3.0)",
+        "Imports": "htmltools, magrittr, purrr, lubridate, stringr, rmarkdown,\nglue, jsonlite, methods",
+        "BugReports": "https://github.com/ijlyttle/bsplus/issues",
+        "RoxygenNote": "7.3.2",
+        "Encoding": "UTF-8",
+        "Suggests": "testthat, shiny, covr, knitr, markdown, withr, litedown",
+        "NeedsCompilation": "no",
+        "Packaged": "2025-04-06 11:54:20 UTC; ijlyttle",
+        "Author": "Ian Lyttle [aut, cre] (<https://orcid.org/0000-0001-9962-4849>),\n  Alex Shum [ctb],\n  Emerson Berry [ctb]",
+        "Maintainer": "Ian Lyttle <ijlyttle@me.com>",
+        "Repository": "RSPM",
+        "Date/Publication": "2025-04-06 12:20:01 UTC",
+        "Built": "R 4.5.0; ; 2025-04-08 06:50:19 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "bsplus",
+        "RemoteRef": "bsplus",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "0.1.5"
       }
     },
     "cachem": {
@@ -1141,6 +1244,42 @@
         "RemoteSha": "0.5.3"
       }
     },
+    "forcats": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "forcats",
+        "Title": "Tools for Working with Categorical Variables (Factors)",
+        "Version": "1.0.1",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"),\n           comment = c(ROR = \"03wc8by49\"))\n  )",
+        "Description": "Helpers for reordering factor levels (including moving\n    specified levels to front, ordering by first appearance, reversing,\n    and randomly shuffling), and tools for modifying factor levels\n    (including collapsing rare levels into other, 'anonymising', and\n    manually 'recoding').",
+        "License": "MIT + file LICENSE",
+        "URL": "https://forcats.tidyverse.org/,\nhttps://github.com/tidyverse/forcats",
+        "BugReports": "https://github.com/tidyverse/forcats/issues",
+        "Depends": "R (>= 4.1)",
+        "Imports": "cli (>= 3.4.0), glue, lifecycle, magrittr, rlang (>= 1.0.0),\ntibble",
+        "Suggests": "covr, dplyr, ggplot2, knitr, readr, rmarkdown, testthat (>=\n3.0.0), withr",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "LazyData": "true",
+        "RoxygenNote": "7.3.3",
+        "NeedsCompilation": "no",
+        "Packaged": "2025-09-24 17:08:21 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre],\n  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
+        "Maintainer": "Hadley Wickham <hadley@posit.co>",
+        "Repository": "RSPM",
+        "Date/Publication": "2025-09-25 05:10:20 UTC",
+        "Built": "R 4.5.0; ; 2025-12-02 12:28:18 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "forcats",
+        "RemoteRef": "forcats",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "1.0.1"
+      }
+    },
     "fs": {
       "Source": "CRAN",
       "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
@@ -1396,6 +1535,43 @@
         "RemoteSha": "1.0.1"
       }
     },
+    "haven": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "haven",
+        "Title": "Import and Export 'SPSS', 'Stata' and 'SAS' Files",
+        "Version": "2.5.5",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Evan\", \"Miller\", role = c(\"aut\", \"cph\"),\n           comment = \"Author of included ReadStat code\"),\n    person(\"Danny\", \"Smith\", role = \"aut\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Description": "Import foreign statistical formats into R via the embedded\n    'ReadStat' C library, <https://github.com/WizardMac/ReadStat>.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://haven.tidyverse.org, https://github.com/tidyverse/haven,\nhttps://github.com/WizardMac/ReadStat",
+        "BugReports": "https://github.com/tidyverse/haven/issues",
+        "Depends": "R (>= 3.6)",
+        "Imports": "cli (>= 3.0.0), forcats (>= 0.2.0), hms, lifecycle, methods,\nreadr (>= 0.1.0), rlang (>= 0.4.0), tibble, tidyselect, vctrs\n(>= 0.3.0)",
+        "Suggests": "covr, crayon, fs, knitr, pillar (>= 1.4.0), rmarkdown,\ntestthat (>= 3.0.0), utf8",
+        "LinkingTo": "cpp11",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.2",
+        "SystemRequirements": "GNU make, zlib: zlib1g-dev (deb), zlib-devel (rpm)",
+        "NeedsCompilation": "yes",
+        "Packaged": "2025-05-30 13:09:12 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre],\n  Evan Miller [aut, cph] (Author of included ReadStat code),\n  Danny Smith [aut],\n  Posit Software, PBC [cph, fnd]",
+        "Maintainer": "Hadley Wickham <hadley@posit.co>",
+        "Repository": "RSPM",
+        "Date/Publication": "2025-05-30 14:10:02 UTC",
+        "Built": "R 4.5.0; x86_64-pc-linux-gnu; 2026-05-07 06:05:26 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "haven",
+        "RemoteRef": "haven",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "2.5.5"
+      }
+    },
     "highr": {
       "Source": "CRAN",
       "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
@@ -1429,6 +1605,40 @@
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu",
         "RemoteSha": "0.12"
+      }
+    },
+    "hms": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "hms",
+        "Title": "Pretty Time of Day",
+        "Date": "2025-10-11",
+        "Version": "1.1.4",
+        "Authors@R": "c(\n    person(\"Kirill\", \"Müller\", , \"kirill@cynkra.com\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-1416-3412\")),\n    person(\"R Consortium\", role = \"fnd\"),\n    person(\"Posit Software, PBC\", role = \"fnd\",\n           comment = c(ROR = \"03wc8by49\"))\n  )",
+        "Description": "Implements an S3 class for storing and formatting time-of-day\n    values, based on the 'difftime' class.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://hms.tidyverse.org/, https://github.com/tidyverse/hms",
+        "BugReports": "https://github.com/tidyverse/hms/issues",
+        "Imports": "cli, lifecycle, methods, pkgconfig, rlang (>= 1.0.2), vctrs\n(>= 0.3.8)",
+        "Suggests": "crayon, lubridate, pillar (>= 1.1.0), testthat (>= 3.0.0)",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.3.9000",
+        "NeedsCompilation": "no",
+        "Packaged": "2025-10-16 19:10:16 UTC; kirill",
+        "Author": "Kirill Müller [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-1416-3412>),\n  R Consortium [fnd],\n  Posit Software, PBC [fnd] (ROR: <https://ror.org/03wc8by49>)",
+        "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+        "Repository": "RSPM",
+        "Date/Publication": "2025-10-17 05:10:11 UTC",
+        "Built": "R 4.5.0; ; 2025-12-02 12:27:10 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "hms",
+        "RemoteRef": "hms",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "1.1.4"
       }
     },
     "htmltools": {
@@ -1894,6 +2104,46 @@
         "RemoteSha": "1.0.5"
       }
     },
+    "lubridate": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Type": "Package",
+        "Package": "lubridate",
+        "Title": "Make Dealing with Dates a Little Easier",
+        "Version": "1.9.5",
+        "Authors@R": "c(\n    person(\"Vitalie\", \"Spinu\", , \"spinuvit@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Garrett\", \"Grolemund\", role = \"aut\"),\n    person(\"Hadley\", \"Wickham\", role = \"aut\"),\n    person(\"Davis\", \"Vaughan\", role = \"ctb\"),\n    person(\"Ian\", \"Lyttle\", role = \"ctb\"),\n    person(\"Imanuel\", \"Costigan\", role = \"ctb\"),\n    person(\"Jason\", \"Law\", role = \"ctb\"),\n    person(\"Doug\", \"Mitarotonda\", role = \"ctb\"),\n    person(\"Joseph\", \"Larmarange\", role = \"ctb\"),\n    person(\"Jonathan\", \"Boiser\", role = \"ctb\"),\n    person(\"Chel Hee\", \"Lee\", role = \"ctb\")\n  )",
+        "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
+        "Description": "Functions to work with date-times and time-spans: fast and\n    user friendly parsing of date-time data, extraction and updating of\n    components of a date-time (years, months, days, hours, minutes, and\n    seconds), algebraic manipulation on date-time and time-span objects.\n    The 'lubridate' package has a consistent and memorable syntax that\n    makes working with dates easy and fun.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://lubridate.tidyverse.org,\nhttps://github.com/tidyverse/lubridate",
+        "BugReports": "https://github.com/tidyverse/lubridate/issues",
+        "Depends": "methods, R (>= 3.2)",
+        "Imports": "generics, timechange (>= 0.4.0)",
+        "Suggests": "covr, knitr, rmarkdown, testthat (>= 2.1.0), vctrs (>= 0.6.5)",
+        "Enhances": "chron, data.table, timeDate, tis, zoo",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "LazyData": "true",
+        "RoxygenNote": "7.3.3",
+        "SystemRequirements": "A system with zoneinfo data (e.g.\n/usr/share/zoneinfo). On Windows the zoneinfo included with R\nis used.",
+        "Collate": "'Dates.r' 'POSIXt.r' 'util.r' 'parse.r' 'timespans.r'\n'intervals.r' 'difftimes.r' 'durations.r' 'periods.r'\n'accessors-date.R' 'accessors-day.r' 'accessors-dst.r'\n'accessors-hour.r' 'accessors-minute.r' 'accessors-month.r'\n'accessors-quarter.r' 'accessors-second.r' 'accessors-tz.r'\n'accessors-week.r' 'accessors-year.r' 'am-pm.r' 'time-zones.r'\n'numeric.r' 'coercion.r' 'constants.r' 'cyclic_encoding.r'\n'data.r' 'decimal-dates.r' 'deprecated.r' 'format_ISO8601.r'\n'guess.r' 'hidden.r' 'instants.r' 'leap-years.r'\n'ops-addition.r' 'ops-compare.r' 'ops-division.r'\n'ops-integer-division.r' 'ops-m+.r' 'ops-modulo.r'\n'ops-multiplication.r' 'ops-subtraction.r' 'package.r'\n'pretty.r' 'round.r' 'stamp.r' 'tzdir.R' 'update.r' 'vctrs.R'\n'zzz.R'",
+        "NeedsCompilation": "yes",
+        "Packaged": "2026-02-03 09:30:08 UTC; vitalie",
+        "Author": "Vitalie Spinu [aut, cre],\n  Garrett Grolemund [aut],\n  Hadley Wickham [aut],\n  Davis Vaughan [ctb],\n  Ian Lyttle [ctb],\n  Imanuel Costigan [ctb],\n  Jason Law [ctb],\n  Doug Mitarotonda [ctb],\n  Joseph Larmarange [ctb],\n  Jonathan Boiser [ctb],\n  Chel Hee Lee [ctb]",
+        "Repository": "RSPM",
+        "Date/Publication": "2026-02-04 09:00:02 UTC",
+        "Built": "R 4.5.0; x86_64-pc-linux-gnu; 2026-02-05 04:22:54 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "lubridate",
+        "RemoteRef": "lubridate",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "1.9.5"
+      }
+    },
     "magrittr": {
       "Source": "CRAN",
       "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
@@ -2354,6 +2604,40 @@
         "RemoteSha": "1.5.3"
       }
     },
+    "plyr": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "plyr",
+        "Title": "Tools for Splitting, Applying and Combining Data",
+        "Version": "1.8.9",
+        "Authors@R": "\n    person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = c(\"aut\", \"cre\"))",
+        "Description": "A set of tools that solves a common set of problems: you need\n    to break a big problem down into manageable pieces, operate on each\n    piece and then put all the pieces back together.  For example, you\n    might want to fit a model to each spatial location or time point in\n    your study, summarise data by panels or collapse high-dimensional\n    arrays to simpler summary statistics. The development of 'plyr' has\n    been generously supported by 'Becton Dickinson'.",
+        "License": "MIT + file LICENSE",
+        "URL": "http://had.co.nz/plyr, https://github.com/hadley/plyr",
+        "BugReports": "https://github.com/hadley/plyr/issues",
+        "Depends": "R (>= 3.1.0)",
+        "Imports": "Rcpp (>= 0.11.0)",
+        "Suggests": "abind, covr, doParallel, foreach, iterators, itertools,\ntcltk, testthat",
+        "LinkingTo": "Rcpp",
+        "Encoding": "UTF-8",
+        "LazyData": "true",
+        "RoxygenNote": "7.2.3",
+        "NeedsCompilation": "yes",
+        "Packaged": "2023-09-27 13:58:04 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre]",
+        "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+        "Repository": "RSPM",
+        "Date/Publication": "2023-10-02 06:50:08 UTC",
+        "Built": "R 4.5.0; x86_64-pc-linux-gnu; 2026-07-06 12:45:27 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "plyr",
+        "RemoteRef": "plyr",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "1.8.9"
+      }
+    },
     "praise": {
       "Source": "CRAN",
       "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
@@ -2484,6 +2768,40 @@
         "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
         "RemoteSha": "0.4.0"
+      }
+    },
+    "progress": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "progress",
+        "Title": "Terminal Progress Bars",
+        "Version": "1.2.3",
+        "Authors@R": "c(\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Rich\", \"FitzJohn\", role = \"aut\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Description": "Configurable Progress bars, they may include percentage,\n    elapsed time, and/or the estimated completion time. They work in\n    terminals, in 'Emacs' 'ESS', 'RStudio', 'Windows' 'Rgui' and the\n    'macOS' 'R.app'. The package also provides a 'C++' 'API', that works\n    with or without 'Rcpp'.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://github.com/r-lib/progress#readme,\nhttp://r-lib.github.io/progress/",
+        "BugReports": "https://github.com/r-lib/progress/issues",
+        "Depends": "R (>= 3.6)",
+        "Imports": "crayon, hms, prettyunits, R6",
+        "Suggests": "Rcpp, testthat (>= 3.0.0), withr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.2.3",
+        "NeedsCompilation": "no",
+        "Packaged": "2023-12-05 09:33:10 UTC; gaborcsardi",
+        "Author": "Gábor Csárdi [aut, cre],\n  Rich FitzJohn [aut],\n  Posit Software, PBC [cph, fnd]",
+        "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
+        "Repository": "RSPM",
+        "Date/Publication": "2023-12-06 10:30:02 UTC",
+        "Built": "R 4.5.0; ; 2025-12-02 12:27:46 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "progress",
+        "RemoteRef": "progress",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "1.2.3"
       }
     },
     "promises": {
@@ -2707,6 +3025,45 @@
         "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
         "RemoteSha": "1.4.0"
+      }
+    },
+    "readr": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "readr",
+        "Title": "Read Rectangular Text Data",
+        "Version": "2.2.0",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\"),\n    person(\"Jim\", \"Hester\", role = \"aut\"),\n    person(\"Romain\", \"Francois\", role = \"ctb\"),\n    person(\"Jennifer\", \"Bryan\", , \"jenny@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-6983-2759\")),\n    person(\"Shelby\", \"Bearrows\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"),\n           comment = c(ROR = \"03wc8by49\")),\n    person(\"https://github.com/mandreyel/\", role = \"cph\",\n           comment = \"mio library\"),\n    person(\"Jukka\", \"Jylänki\", role = c(\"ctb\", \"cph\"),\n           comment = \"grisu3 implementation\"),\n    person(\"Mikkel\", \"Jørgensen\", role = c(\"ctb\", \"cph\"),\n           comment = \"grisu3 implementation\")\n  )",
+        "Description": "The goal of 'readr' is to provide a fast and friendly way to\n    read rectangular data (like 'csv', 'tsv', and 'fwf').  It is designed\n    to flexibly parse many types of data found in the wild, while still\n    cleanly failing when data unexpectedly changes.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://readr.tidyverse.org, https://github.com/tidyverse/readr",
+        "BugReports": "https://github.com/tidyverse/readr/issues",
+        "Depends": "R (>= 4.1)",
+        "Imports": "cli, clipr, crayon, glue, hms (>= 0.4.1), lifecycle, methods,\nR6, rlang, tibble, utils, vroom (>= 1.7.0), withr",
+        "Suggests": "covr, curl, datasets, knitr, rmarkdown, spelling, stringi,\ntestthat (>= 3.2.0), tzdb (>= 0.1.1), waldo, xml2",
+        "LinkingTo": "cpp11, tzdb (>= 0.1.1)",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse, tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Config/testthat/parallel": "false",
+        "Config/usethis/last-upkeep": "2025-11-14",
+        "Encoding": "UTF-8",
+        "Language": "en-US",
+        "RoxygenNote": "7.3.3",
+        "NeedsCompilation": "yes",
+        "Packaged": "2026-02-19 07:07:31 UTC; jenny",
+        "Author": "Hadley Wickham [aut],\n  Jim Hester [aut],\n  Romain Francois [ctb],\n  Jennifer Bryan [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-6983-2759>),\n  Shelby Bearrows [ctb],\n  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>),\n  https://github.com/mandreyel/ [cph] (mio library),\n  Jukka Jylänki [ctb, cph] (grisu3 implementation),\n  Mikkel Jørgensen [ctb, cph] (grisu3 implementation)",
+        "Maintainer": "Jennifer Bryan <jenny@posit.co>",
+        "Repository": "RSPM",
+        "Date/Publication": "2026-02-19 18:10:02 UTC",
+        "Built": "R 4.5.0; x86_64-pc-linux-gnu; 2026-05-07 06:04:02 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "readr",
+        "RemoteRef": "readr",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "2.2.0"
       }
     },
     "renv": {
@@ -3612,6 +3969,39 @@
         "RemoteSha": "1.2.1"
       }
     },
+    "timechange": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "timechange",
+        "Title": "Efficient Manipulation of Date-Times",
+        "Version": "0.4.0",
+        "Authors@R": "c(person(\"Vitalie\", \"Spinu\", email = \"spinuvit@gmail.com\", role = c(\"aut\", \"cre\")),\n             person(\"Google Inc.\", role = c(\"ctb\", \"cph\")))",
+        "Description": "Efficient routines for manipulation of date-time objects while\n   accounting for time-zones and daylight saving times. The package includes\n   utilities for updating of date-time components (year, month, day etc.),\n   modification of time-zones, rounding of date-times, period addition and\n   subtraction etc. Parts of the 'CCTZ' source code, released under the Apache\n   2.0 License, are included in this package. See\n   <https://github.com/google/cctz> for more details.",
+        "Depends": "R (>= 3.3)",
+        "License": "GPL (>= 3)",
+        "Encoding": "UTF-8",
+        "LinkingTo": "cpp11 (>= 0.2.7)",
+        "Suggests": "testthat (>= 0.7.1.99), knitr",
+        "SystemRequirements": "A system with zoneinfo data (e.g.\n/usr/share/zoneinfo). On Windows the zoneinfo included with R\nis used.",
+        "BugReports": "https://github.com/vspinu/timechange/issues",
+        "URL": "https://github.com/vspinu/timechange/",
+        "RoxygenNote": "7.2.1",
+        "NeedsCompilation": "yes",
+        "Packaged": "2026-01-29 08:59:34 UTC; vitalie",
+        "Author": "Vitalie Spinu [aut, cre],\n  Google Inc. [ctb, cph]",
+        "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
+        "Repository": "RSPM",
+        "Date/Publication": "2026-01-29 22:20:08 UTC",
+        "Built": "R 4.5.0; x86_64-pc-linux-gnu; 2026-05-07 05:59:59 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "timechange",
+        "RemoteRef": "timechange",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "0.4.0"
+      }
+    },
     "tinytex": {
       "Source": "CRAN",
       "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
@@ -3643,6 +4033,41 @@
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu",
         "RemoteSha": "0.60"
+      }
+    },
+    "tzdb": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "tzdb",
+        "Title": "Time Zone Database Information",
+        "Version": "0.5.0",
+        "Authors@R": "c(\n    person(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Howard\", \"Hinnant\", role = \"cph\",\n           comment = \"Author of the included date library\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Description": "Provides an up-to-date copy of the Internet Assigned Numbers\n    Authority (IANA) Time Zone Database. It is updated periodically to\n    reflect changes made by political bodies to time zone boundaries, UTC\n    offsets, and daylight saving time rules. Additionally, this package\n    provides a C++ interface for working with the 'date' library. 'date'\n    provides comprehensive support for working with dates and date-times,\n    which this package exposes to make it easier for other R packages to\n    utilize. Headers are provided for calendar specific calculations,\n    along with a limited interface for time zone manipulations.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://tzdb.r-lib.org, https://github.com/r-lib/tzdb",
+        "BugReports": "https://github.com/r-lib/tzdb/issues",
+        "Depends": "R (>= 4.0.0)",
+        "Suggests": "covr, testthat (>= 3.0.0)",
+        "LinkingTo": "cpp11 (>= 0.5.2)",
+        "Biarch": "yes",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.2",
+        "NeedsCompilation": "yes",
+        "Packaged": "2025-03-14 18:41:13 UTC; davis",
+        "Author": "Davis Vaughan [aut, cre],\n  Howard Hinnant [cph] (Author of the included date library),\n  Posit Software, PBC [cph, fnd]",
+        "Maintainer": "Davis Vaughan <davis@posit.co>",
+        "Repository": "RSPM",
+        "Date/Publication": "2025-03-15 22:50:02 UTC",
+        "Built": "R 4.5.0; x86_64-pc-linux-gnu; 2026-05-07 06:00:01 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "tzdb",
+        "RemoteRef": "tzdb",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "0.5.0"
       }
     },
     "urlchecker": {
@@ -3792,6 +4217,47 @@
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "x86_64-pc-linux-gnu",
         "RemoteSha": "0.7.3"
+      }
+    },
+    "vroom": {
+      "Source": "CRAN",
+      "Repository": "https://ppm.titans.int.bayer.com/cran/latest",
+      "description": {
+        "Package": "vroom",
+        "Title": "Read and Write Rectangular Text Data Quickly",
+        "Version": "1.7.1",
+        "Authors@R": "c(\n    person(\"Jim\", \"Hester\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-2739-7082\")),\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Jennifer\", \"Bryan\", , \"jenny@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-6983-2759\")),\n    person(\"Shelby\", \"Bearrows\", role = \"ctb\"),\n    person(\"https://github.com/mandreyel/\", role = \"cph\",\n           comment = \"mio library\"),\n    person(\"Jukka\", \"Jylänki\", role = \"cph\",\n           comment = \"grisu3 implementation\"),\n    person(\"Mikkel\", \"Jørgensen\", role = \"cph\",\n           comment = \"grisu3 implementation\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"03wc8by49\"))\n  )",
+        "Description": "The goal of 'vroom' is to read and write data (like 'csv',\n    'tsv' and 'fwf') quickly. When reading it uses a quick initial\n    indexing step, then reads the values lazily , so only the data you\n    actually use needs to be read.  The writer formats the data in\n    parallel and writes to disk asynchronously from formatting.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://vroom.tidyverse.org, https://github.com/tidyverse/vroom",
+        "BugReports": "https://github.com/tidyverse/vroom/issues",
+        "Depends": "R (>= 4.1)",
+        "Imports": "bit64, cli (>= 3.2.0), crayon, glue, hms, lifecycle (>=\n1.0.3), methods, rlang (>= 1.1.0), stats, tibble (>= 2.0.0),\ntidyselect, tzdb (>= 0.1.1), vctrs (>= 0.2.0), withr",
+        "Suggests": "archive, bench (>= 1.1.0), covr, curl, dplyr, forcats, fs,\nggplot2, knitr, patchwork, prettyunits, purrr, rmarkdown,\nrstudioapi, scales, spelling, testthat (>= 2.1.0), tidyr,\nutils, waldo, xml2",
+        "LinkingTo": "cpp11 (>= 0.2.0), progress (>= 1.2.3), tzdb (>= 0.1.1)",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "nycflights13, tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Config/testthat/parallel": "false",
+        "Config/usethis/last-upkeep": "2025-11-25",
+        "Copyright": "file COPYRIGHTS",
+        "Encoding": "UTF-8",
+        "Language": "en-US",
+        "RoxygenNote": "7.3.3",
+        "Config/build/compilation-database": "true",
+        "NeedsCompilation": "yes",
+        "Packaged": "2026-03-30 20:25:37 UTC; jenny",
+        "Author": "Jim Hester [aut] (ORCID: <https://orcid.org/0000-0002-2739-7082>),\n  Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>),\n  Jennifer Bryan [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-6983-2759>),\n  Shelby Bearrows [ctb],\n  https://github.com/mandreyel/ [cph] (mio library),\n  Jukka Jylänki [cph] (grisu3 implementation),\n  Mikkel Jørgensen [cph] (grisu3 implementation),\n  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
+        "Maintainer": "Jennifer Bryan <jenny@posit.co>",
+        "Repository": "RSPM",
+        "Date/Publication": "2026-03-31 05:10:02 UTC",
+        "Built": "R 4.5.0; x86_64-pc-linux-gnu; 2026-05-07 06:01:25 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "vroom",
+        "RemoteRef": "vroom",
+        "RemoteRepos": "https://ppm.titans.int.bayer.com/cran/__linux__/jammy/latest",
+        "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+        "RemoteSha": "1.7.1"
       }
     },
     "waldo": {
@@ -4117,10 +4583,10 @@
       "checksum": "4e0601d84f5c59ea93cbdb71aef48153"
     },
     ".Rbuildignore": {
-      "checksum": "3063f6f2fdf6d81ee43c16293692299c"
+      "checksum": "1db52e8f433521738cdc2d440ab401cf"
     },
     ".Rprofile": {
-      "checksum": "d4c5379650d405f53ba877e44b47ed82"
+      "checksum": "f4d19209ad88a5c36f225e297b125576"
     },
     ".vscode/extensions.json": {
       "checksum": "90d7891f1569632ae447aaa2d080d5c7"
@@ -4132,13 +4598,10 @@
       "checksum": "d41d8cd98f00b204e9800998ecf8427e"
     },
     "app.R": {
-      "checksum": "59fca75e69889d605a85634d03615a0d"
-    },
-    "data/dorisExampleData.csv": {
-      "checksum": "5507a0a4a0ee9122b26f827a346e07dc"
+      "checksum": "7014b3eeb5f9fe9cd6781ebdd4372d5d"
     },
     "DESCRIPTION": {
-      "checksum": "eea704cffbc3daa6bea4f13eb4416694"
+      "checksum": "a449e85e9fbf930a5ebdc2d523cb4d9a"
     },
     "Dockerfile": {
       "checksum": "1942c5047e6545b58cc8e45b38c44078"
@@ -4158,17 +4621,20 @@
     "inst/app/www/Figure3.png": {
       "checksum": "705ef44c6c995e260f54c6ca8049cb4f"
     },
+    "inst/extdata/dorisExampleData.csv": {
+      "checksum": "5507a0a4a0ee9122b26f827a346e07dc"
+    },
     "inst/golem-config.yml": {
       "checksum": "d1c4c300661e5a2273062fd263f29b12"
     },
     "inst/WORDLIST": {
-      "checksum": "ddbc7a593971a5bc44bf0a76857fa97b"
+      "checksum": "a2452f4f15cf2b1f3f8e532f7d56f9c4"
     },
     "jarl.toml": {
-      "checksum": "25919309600dcdcb0b06893e034cb0ee"
+      "checksum": "48164aa40c6572c91187eddde2543740"
     },
     "NAMESPACE": {
-      "checksum": "5fc250fa9a4149d9565e61ca68e0efe1"
+      "checksum": "ccb708e70e181b68089d262d4493aa50"
     },
     "R/_disable_autoload.R": {
       "checksum": "1178c335d6c11555fd1c4ec6098dfee6"
@@ -4177,10 +4643,10 @@
       "checksum": "3c3f8f569b470fc4785fa97844e9faef"
     },
     "R/app_server.R": {
-      "checksum": "1fd1d86e7de48a8cfb37b48c9e19f056"
+      "checksum": "b2331bc847139b8cc8c859132bca2ee5"
     },
     "R/app_ui.R": {
-      "checksum": "11e3ed176f1831a7ce508920f36d4d27"
+      "checksum": "3374a48ff7c7f321fe66926b6d1f49d4"
     },
     "R/doris_Histogram.R": {
       "checksum": "ef90e4397189a815fe722aab3a4fcdf9"
@@ -4189,16 +4655,16 @@
       "checksum": "522696932bad392a3509d01fdca6a80d"
     },
     "R/dorisAutoPattern.R": {
-      "checksum": "2ac129bf9d6ac92814996b048f7021ec"
+      "checksum": "f33388d7f3236816ff6d9810c96be963"
     },
     "R/dorisCalcPvalue.R": {
-      "checksum": "21435900b94d7ea7fa5127d07bcf71aa"
+      "checksum": "b32f0cf9f3035639154bcb893d1f7c26"
     },
     "R/dorisDistribution.R": {
       "checksum": "cc3e28e76eeaa6d2837e2bca72f225be"
     },
     "R/dorisEvaluation.R": {
-      "checksum": "3ea59c1c632887d78b79943b7042e670"
+      "checksum": "465eef4bbccf117ce0d1897c528399f8"
     },
     "R/dorisFuzzyLogic.R": {
       "checksum": "2acb05cef510cc31fc8b3d3ee932a4d6"
@@ -4215,17 +4681,26 @@
     "R/fct_calc_truth_values.R": {
       "checksum": "5af3cb335e058e91051577159e5bdd33"
     },
+    "R/globals.R": {
+      "checksum": "acda5bb945ad9c8ade160246abd34830"
+    },
     "R/helpTextDropdownButton.R": {
-      "checksum": "4a9e062b8526c62acc213b88fdd53eb1"
+      "checksum": "fd10d517c3263d83a2506cd153266fcd"
+    },
+    "R/run_app.R": {
+      "checksum": "476011bbc4ffefa824e5bfb8386d849b"
     },
     "R/run_doris.R": {
-      "checksum": "a159bd07593d83bd2d60a643289008e2"
+      "checksum": "42c47b04b591ea7c9d3bc67f9f5081c0"
+    },
+    "R/utils_dummy.R": {
+      "checksum": "9c08b628ad1bcb3a4a6538733977dfe7"
     },
     "R/utls_gettvpdose.R": {
       "checksum": "545c700e56f961377b1ca097258c5c3b"
     },
     "renv.lock": {
-      "checksum": "a6a3dccbf025b1f0e6e6f394a89aaf4e"
+      "checksum": "720670b51581da8dd780704d858abff0"
     },
     "requirements.txt": {
       "checksum": "7414797b28de3ecd14ad81552c5ed9cc"

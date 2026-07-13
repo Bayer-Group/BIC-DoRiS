@@ -52,5 +52,3 @@ usethis::use_github_action(
 usethis::use_github_action(
   url = "https://github.com/etiennebacher/setup-jarl/blob/main/examples/jarl-check.yml"
 )
-
-rsconnect::writeManifest()
