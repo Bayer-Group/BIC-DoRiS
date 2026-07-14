@@ -4586,7 +4586,7 @@
       "checksum": "1db52e8f433521738cdc2d440ab401cf"
     },
     ".Rprofile": {
-      "checksum": "268363c181d52b3756fffd6fe660de69"
+      "checksum": "1ca7f176d29bbff9af845acc40e2c1c0"
     },
     ".vscode/extensions.json": {
       "checksum": "90d7891f1569632ae447aaa2d080d5c7"
@@ -4598,7 +4598,7 @@
       "checksum": "d41d8cd98f00b204e9800998ecf8427e"
     },
     "app.R": {
-      "checksum": "7014b3eeb5f9fe9cd6781ebdd4372d5d"
+      "checksum": "eac39f5399e11d41aa9c97c3c0969027"
     },
     "DESCRIPTION": {
       "checksum": "a449e85e9fbf930a5ebdc2d523cb4d9a"
@@ -4625,7 +4625,7 @@
       "checksum": "5507a0a4a0ee9122b26f827a346e07dc"
     },
     "inst/golem-config.yml": {
-      "checksum": "d1c4c300661e5a2273062fd263f29b12"
+      "checksum": "64fd424a834164957f5224c2f425111e"
     },
     "inst/WORDLIST": {
       "checksum": "a2452f4f15cf2b1f3f8e532f7d56f9c4"

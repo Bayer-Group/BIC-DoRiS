@@ -1,6 +1,6 @@
 default:
-  golem_name: shinyexample
-  golem_version: 0.0.0.9000
+  golem_name: doris
+  golem_version: 0.0.20
   app_prod: no
 
 production:
