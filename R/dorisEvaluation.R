@@ -6,6 +6,7 @@
 #' @param pattern vector to specify pattern of differences
 #' @param delta vector with fuzzy logic threshold values
 #' @param alpha pattern matching threshold
+#' @param method method used to combine truth values ("Minimum", "Sum", "Mean", or "Weighted Mean")
 #' @return a list with six items (lowercase: vectors, uppercase: data frames):
 #' * \code{ctm} clinical trial means
 #' * \code{SGM} subgroup means

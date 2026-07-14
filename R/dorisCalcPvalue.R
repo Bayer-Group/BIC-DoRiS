@@ -1,7 +1,7 @@
 #' calculates pvalue for permutations in doris app
 #'
 #' @param tmp_list reactive calc_permutation_automatic or calc_permutation_manual-object from doris app
-#' @param total_truth_val numeric value of total truth value
+#' @param truth_value numeric value(s) of total truth value
 
 dorisCalcPvalue <- function(
   tmp_list,

@@ -150,7 +150,7 @@ app_ui <- function(request) {
                           You have to select at least one subgroup variable,
                           but several variables can also be analyzed at the same time.
                           There is no restriction to the number of subgroup variables.
-                          After choosing all variables press the ‘submit’ button.
+                          After choosing all variables press the 'submit' button.
                         </h5>
                       "
                         )
@@ -232,8 +232,8 @@ app_ui <- function(request) {
                         If you select manual pattern choice pattern selection
                         boxes will appear, one for each dose level.
                         You can select a pattern you are interested in.
-                        For each box you have the choice of ‘<’, ‘=’ or ‘>’.
-                        For example, if you have three dose groups – placebo,
+                        For each box you have the choice of '<', '=' or '>'.
+                        For example, if you have three dose groups - placebo,
                         low dose and high dose - and select a pattern = > > you
                         are looking for a subgroup with a deviating dose
                         response curve that shows equal response after placebo
@@ -426,13 +426,13 @@ app_ui <- function(request) {
                           "
                         <h4> Perform permutation: </h4>
                         <h5>
-                        Tick the ‘Perform permutation’ box to start the calculations including permutation tests.
-                        On the ‘evaluation’ tab, a list of all subgroups can be seen on the left side in the DoRiS application.
+                        Tick the 'Perform permutation' box to start the calculations including permutation tests.
+                        On the 'evaluation' tab, a list of all subgroups can be seen on the left side in the DoRiS application.
                         It can be sorted by the total truth values to display the best fitting subgroup at the top.
                         Click on the arrows next to the column headers for sorting.
                         On the right side the dose response curve for the respective subgroup is
                         displayed together with a histogram of the total truth values from the permutations.
-                        On the ‘description’ tab you can see summary statistics by subgroup:
+                        On the 'description' tab you can see summary statistics by subgroup:
                         the number of subjects by dose group, subgroup means and difference of subgroup means to reference group means.
                         </h5>
                         <h5 style = 'color: red;'>
@@ -531,7 +531,7 @@ app_ui <- function(request) {
                             "Number of Subjects",
                             shiny::column(
                               12,
-                              DT::dataTableOutput("overview_table"),
+                              DT::DTOutput("overview_table"),
                               style = "overflow-y: scroll;overflow-x: scroll;"
                             )
                           ),
@@ -539,7 +539,7 @@ app_ui <- function(request) {
                             "Subgroup means",
                             shiny::column(
                               12,
-                              DT::dataTableOutput("SGM"),
+                              DT::DTOutput("SGM"),
                               style = "overflow-y: scroll;overflow-x: scroll;"
                             )
                           ),
@@ -547,7 +547,7 @@ app_ui <- function(request) {
                             "Diff. Subgroup means & clinical trial means",
                             shiny::column(
                               12,
-                              DT::dataTableOutput("DSC"),
+                              DT::DTOutput("DSC"),
                               style = "overflow-y: scroll;overflow-x: scroll;"
                             )
                           )
@@ -557,7 +557,7 @@ app_ui <- function(request) {
                         "Evaluation",
                         shiny::column(
                           12,
-                          DT::dataTableOutput("DT_eval"),
+                          DT::DTOutput("DT_eval"),
                           style = "overflow-y: scroll;overflow-x: scroll;"
                         )
                       )

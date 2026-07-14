@@ -26,6 +26,8 @@ dorisEvaluation(
 \item{delta}{vector with fuzzy logic threshold values}
 
 \item{alpha}{pattern matching threshold}
+
+\item{method}{method used to combine truth values ("Minimum", "Sum", "Mean", or "Weighted Mean")}
 }
 \value{
 a list with six items (lowercase: vectors, uppercase: data frames):

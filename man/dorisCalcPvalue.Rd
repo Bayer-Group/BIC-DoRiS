@@ -9,7 +9,7 @@ dorisCalcPvalue(tmp_list, truth_value)
 \arguments{
 \item{tmp_list}{reactive calc_permutation_automatic or calc_permutation_manual-object from doris app}
 
-\item{total_truth_val}{numeric value of total truth value}
+\item{truth_value}{numeric value(s) of total truth value}
 }
 \description{
 calculates pvalue for permutations in doris app
