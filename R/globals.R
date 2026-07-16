@@ -1,0 +1,27 @@
+#' @importFrom utils globalVariables
+utils::globalVariables(c(
+  ".data",
+  ":=",
+  "abline",
+  "axis",
+  "complement_difference",
+  "dose",
+  "ecdf",
+  "error",
+  "hist",
+  "levels_and_pattern",
+  "lines",
+  "mean_complement",
+  "mean_subgroup",
+  "mtext",
+  "N_complement",
+  "N_overall",
+  "N_subgroup",
+  "na.omit",
+  "overall_difference",
+  "par",
+  "points",
+  "read.csv",
+  "segments",
+  "weighted.mean"
+))

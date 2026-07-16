@@ -1,5 +1,7 @@
 #' Run the Shiny Application
 #'
+#' @param host host name (see [shiny::runApp()])
+#' @param port port number (see [shiny::runApp()])
 #' @param ... A series of options to be used inside the app.
 #'
 #' @export
