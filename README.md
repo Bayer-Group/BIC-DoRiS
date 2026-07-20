@@ -1,7 +1,7 @@
 # DoRiS - Dose Response in Subgroups
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml/badge.svg)
 <!-- badges: end -->
 
 ### Intention
