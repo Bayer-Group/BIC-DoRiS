@@ -44,6 +44,9 @@ rsconnect::writeManifest()
 
 # usethis::use_version("dev")
 
+# Add License
+# usethis::use_gpl3_license()
+
 # Add air GitHub actions
 usethis::use_github_action()
 usethis::use_github_action(
