@@ -4583,10 +4583,10 @@
       "checksum": "4e0601d84f5c59ea93cbdb71aef48153"
     },
     ".Rbuildignore": {
-      "checksum": "1db52e8f433521738cdc2d440ab401cf"
+      "checksum": "6c7f5e2971da2f5f29d336d59730214e"
     },
     ".Rprofile": {
-      "checksum": "1ca7f176d29bbff9af845acc40e2c1c0"
+      "checksum": "7efeb3763fb196b69275d60060ee4453"
     },
     ".vscode/extensions.json": {
       "checksum": "90d7891f1569632ae447aaa2d080d5c7"
@@ -4601,7 +4601,7 @@
       "checksum": "eac39f5399e11d41aa9c97c3c0969027"
     },
     "DESCRIPTION": {
-      "checksum": "a449e85e9fbf930a5ebdc2d523cb4d9a"
+      "checksum": "0b33a24521a5b0b6d28769588500f58c"
     },
     "Dockerfile": {
       "checksum": "1942c5047e6545b58cc8e45b38c44078"
