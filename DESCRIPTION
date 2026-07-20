@@ -1,7 +1,7 @@
 Package: doris
 Type: Package
 Title: Dose response in subgroups
-Version: 0.0.2.9000
+Version: 0.0.3
 Author: Frauke Friedrichs, Steffen Jeske
 Maintainer: Bodo Kirsch <bodo.kirsch@bayer.com>
 Description: This shiny App enables interactive exploration of dose response in different subgroups. 
