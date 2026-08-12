@@ -45,20 +45,23 @@ dorisGraph_base2 <- function(
   # No longer needed. Evaluate anyway to avoid errors.
   force(pattern_choice_auto)
 
-  bar_width <- diff(range(dorisGraphData$dose))/100
-  delta_width <- diff(range(dorisGraphData$dose))/35
+  bar_width <- diff(range(dorisGraphData$dose)) / 100
+  delta_width <- diff(range(dorisGraphData$dose)) / 35
 
-  par(mfrow = c(1,1),mar=c(2.2,2.2,3.5,1.2))
+  par(mfrow = c(1, 1), mar = c(2.2, 2.2, 3.5, 1.2))
 
   plot(
     x = dorisGraphData$dose,
     y = dorisGraphData$mean,
     type = "n",
     xaxt = "n",
-    ylim=c(lower,upper),
-    xlim = c(min(dorisGraphData$dose) - (3*bar_width),max(dorisGraphData$dose) + (3*bar_width)),
+    ylim = c(lower, upper),
+    xlim = c(
+      min(dorisGraphData$dose) - (3 * bar_width),
+      max(dorisGraphData$dose) + (3 * bar_width)
+    ),
     ylab = "",
-    xlab= "",
+    xlab = "",
     bg = "#424242",
   )
   axis(1, at = dorisGraphData$dose)
@@ -78,32 +81,66 @@ dorisGraph_base2 <- function(
     }
 
     # After merging, pattern may only exist as pattern.x.
-    pcol <- if ("pattern" %in% names(tmp)) tmp$pattern[1L] else if ("pattern.x" %in% names(tmp)) tmp$pattern.x[1L] else NA
+    pcol <- if ("pattern" %in% names(tmp)) {
+      tmp$pattern[1L]
+    } else if ("pattern.x" %in% names(tmp)) {
+      tmp$pattern.x[1L]
+    } else {
+      NA
+    }
     sym <- tryCatch(as.character(pcol), error = function(e) NA_character_)
 
-    if (isTRUE(add_backgrounds_logical) && !is.na(sym) && sym %in% c("=", "<", ">")) {
+    if (
+      isTRUE(add_backgrounds_logical) &&
+        !is.na(sym) &&
+        sym %in% c("=", "<", ">")
+    ) {
       bg_ramp <- switch(
         sym,
-        "=" = grDevices::colorRamp(c("#f2f2f2","#f5aa20","#f2f2f2")),
-        "<" = grDevices::colorRamp(c("#f5aa20","#f2f2f2")),
-        ">" = grDevices::colorRamp(c("#f2f2f2","#f5aa20"))
+        "=" = grDevices::colorRamp(c("#f2f2f2", "#f5aa20", "#f2f2f2")),
+        "<" = grDevices::colorRamp(c("#f5aa20", "#f2f2f2")),
+        ">" = grDevices::colorRamp(c("#f2f2f2", "#f5aa20"))
       )
 
-    if (compare_pattern == "overall") {
-      seq_delta <- switch(
-        sym,
-        "=" = seq(tmp$overall_delta_lower_equal, tmp$overall_delta_upper_equal, length.out = 501L),
-        "<" = seq(tmp$overall_delta_lower_less, tmp$overall_delta_upper_less, length.out = 501L),
-        ">" = seq(tmp$overall_delta_lower_greater, tmp$overall_delta_upper_greater, length.out = 501L)
-      )
-    } else {
-      seq_delta <- switch(
-        sym,
-        "=" = seq(tmp$complement_delta_lower_equal, tmp$complement_delta_upper_equal, length.out = 501L),
-        "<" = seq(tmp$complement_delta_lower_less, tmp$complement_delta_upper_less, length.out = 501L),
-        ">" = seq(tmp$complement_delta_lower_greater, tmp$complement_delta_upper_greater, length.out = 501L)
-      )
-    }
+      if (compare_pattern == "overall") {
+        seq_delta <- switch(
+          sym,
+          "=" = seq(
+            tmp$overall_delta_lower_equal,
+            tmp$overall_delta_upper_equal,
+            length.out = 501L
+          ),
+          "<" = seq(
+            tmp$overall_delta_lower_less,
+            tmp$overall_delta_upper_less,
+            length.out = 501L
+          ),
+          ">" = seq(
+            tmp$overall_delta_lower_greater,
+            tmp$overall_delta_upper_greater,
+            length.out = 501L
+          )
+        )
+      } else {
+        seq_delta <- switch(
+          sym,
+          "=" = seq(
+            tmp$complement_delta_lower_equal,
+            tmp$complement_delta_upper_equal,
+            length.out = 501L
+          ),
+          "<" = seq(
+            tmp$complement_delta_lower_less,
+            tmp$complement_delta_upper_less,
+            length.out = 501L
+          ),
+          ">" = seq(
+            tmp$complement_delta_lower_greater,
+            tmp$complement_delta_upper_greater,
+            length.out = 501L
+          )
+        )
+      }
 
       seq_delta <- sort(unique(c(seq_delta)))
       seq_delta <- seq_delta[is.finite(seq_delta)]
@@ -186,7 +223,7 @@ dorisGraph_base2 <- function(
         }
       }
     }
-    if (add_overall_mean_logical){
+    if (add_overall_mean_logical) {
       mtext(
         paste0("N=", tmp$N_overall),
         side = 3,
@@ -222,7 +259,10 @@ dorisGraph_base2 <- function(
     df <- Reduce(rbind, lapply(tmp_list$mean_list, function(x) x[index, ]))
     if (!any(is.na(df))) {
       perm_ramp <- grDevices::colorRamp(c("#eeeeee", "#f5aa20"))
-      col_df <- grDevices::rgb(perm_ramp(tmp_list$tv_df[index, ]), maxColorValue = 255)
+      col_df <- grDevices::rgb(
+        perm_ramp(tmp_list$tv_df[index, ]),
+        maxColorValue = 255
+      )
       for (j in seq_along(col_df)) {
         lines(
           x = dorisGraphData$dose,
@@ -231,79 +271,121 @@ dorisGraph_base2 <- function(
           lwd = 1.5
         )
       }
-   }
+    }
   }
   # draw mean lines
   if (add_overall_mean_logical) {
-      lines(
-        x = dorisGraphData$dose,
-        y = dorisGraphData$mean,
-        type = "l",
-        col = "#424242",
-        lwd = 2,
-        pch = 16
-      )
-      points(
-        dorisGraphData$dose,
-        dorisGraphData$mean,
-        cex= sqrt(20*(dorisGraphData$N_overall/max(dorisGraphData$N_overall))/pi),
-        col ="#00000080",
-        pch = 19
-      )
+    lines(
+      x = dorisGraphData$dose,
+      y = dorisGraphData$mean,
+      type = "l",
+      col = "#424242",
+      lwd = 2,
+      pch = 16
+    )
+    points(
+      dorisGraphData$dose,
+      dorisGraphData$mean,
+      cex = sqrt(
+        20 * (dorisGraphData$N_overall / max(dorisGraphData$N_overall)) / pi
+      ),
+      col = "#00000080",
+      pch = 19
+    )
   }
-
 
   if (add_points_logical) {
     #points_data
     if (jitter_points) {
+      jitter_width <- diff(range(dorisGraphData$dose)) / 10
 
-      jitter_width <- diff(range(dorisGraphData$dose))/10
-
-      tmp <- points_data[points_data[,subgroup] != subgroup_level,]$dose
-      tmp_sub <- points_data[points_data[,subgroup] == subgroup_level,]$dose
+      tmp <- points_data[points_data[, subgroup] != subgroup_level, ]$dose
+      tmp_sub <- points_data[points_data[, subgroup] == subgroup_level, ]$dose
 
       for (i in dorisGraphData$dose) {
-        tmp[tmp == i & !is.na(tmp)] <- points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)] + seq(-jitter_width/8, jitter_width/8, length = length(points_data[points_data[,subgroup] != subgroup_level,]$dose[points_data[points_data[,subgroup] != subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] != subgroup_level,]$dose)])) +(jitter_width/4)
-        tmp_sub[tmp_sub == i & !is.na(tmp_sub)] <- points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)] + seq(-jitter_width/8, jitter_width/8, length = length(points_data[points_data[,subgroup] == subgroup_level,]$dose[points_data[points_data[,subgroup] == subgroup_level,]$dose == i & !is.na(points_data[points_data[,subgroup] == subgroup_level,]$dose)])) - (jitter_width/4)
-
+        tmp[tmp == i & !is.na(tmp)] <- points_data[
+          points_data[, subgroup] != subgroup_level,
+        ]$dose[
+          points_data[points_data[, subgroup] != subgroup_level, ]$dose == i &
+            !is.na(
+              points_data[points_data[, subgroup] != subgroup_level, ]$dose
+            )
+        ] +
+          seq(
+            -jitter_width / 8,
+            jitter_width / 8,
+            length = length(points_data[
+              points_data[, subgroup] != subgroup_level,
+            ]$dose[
+              points_data[points_data[, subgroup] != subgroup_level, ]$dose ==
+                i &
+                !is.na(
+                  points_data[points_data[, subgroup] != subgroup_level, ]$dose
+                )
+            ])
+          ) +
+          (jitter_width / 4)
+        tmp_sub[tmp_sub == i & !is.na(tmp_sub)] <- points_data[
+          points_data[, subgroup] == subgroup_level,
+        ]$dose[
+          points_data[points_data[, subgroup] == subgroup_level, ]$dose == i &
+            !is.na(
+              points_data[points_data[, subgroup] == subgroup_level, ]$dose
+            )
+        ] +
+          seq(
+            -jitter_width / 8,
+            jitter_width / 8,
+            length = length(points_data[
+              points_data[, subgroup] == subgroup_level,
+            ]$dose[
+              points_data[points_data[, subgroup] == subgroup_level, ]$dose ==
+                i &
+                !is.na(
+                  points_data[points_data[, subgroup] == subgroup_level, ]$dose
+                )
+            ])
+          ) -
+          (jitter_width / 4)
       }
       points(
         tmp,
-        points_data[points_data[,subgroup] != subgroup_level,]$targetVariable,
-        cex= 1,
-        col ="#08cf8690",
+        points_data[points_data[, subgroup] != subgroup_level, ]$targetVariable,
+        cex = 1,
+        col = "#08cf8690",
         pch = 18
       )
-
 
       points(
         tmp_sub,
-        points_data[points_data[,subgroup] == subgroup_level,]$targetVariable,
-        cex= 1,
-        col ="#1e90ff90",
+        points_data[points_data[, subgroup] == subgroup_level, ]$targetVariable,
+        cex = 1,
+        col = "#1e90ff90",
         pch = 18
       )
     } else {
-      jitter_width <- diff(range(dorisGraphData$dose))/10
+      jitter_width <- diff(range(dorisGraphData$dose)) / 10
       points(
-        points_data[points_data[,subgroup] != subgroup_level,]$dose+(jitter_width/4),
-        points_data[points_data[,subgroup] != subgroup_level,]$targetVariable,
-        cex= 1,
-        col ="#08cf8690",
+        points_data[points_data[, subgroup] != subgroup_level, ]$dose +
+          (jitter_width / 4),
+        points_data[points_data[, subgroup] != subgroup_level, ]$targetVariable,
+        cex = 1,
+        col = "#08cf8690",
         pch = 18
       )
       points(
-        points_data[points_data[,subgroup] == subgroup_level,]$dose-(jitter_width/4),
-        points_data[points_data[,subgroup] == subgroup_level,]$targetVariable,
-        cex= 1,
-        col ="#1e90ff90",
+        points_data[points_data[, subgroup] == subgroup_level, ]$dose -
+          (jitter_width / 4),
+        points_data[points_data[, subgroup] == subgroup_level, ]$targetVariable,
+        cex = 1,
+        col = "#1e90ff90",
         pch = 18
       )
     }
   }
 
   #draw subgroup lines
- if(add_subgroup) {
+  if (add_subgroup) {
     lines(
       x = dorisGraphData$dose,
       y = dorisGraphData$mean_subgroup,
@@ -315,52 +397,60 @@ dorisGraph_base2 <- function(
     points(
       dorisGraphData$dose,
       dorisGraphData$mean_subgroup,
-      cex = sqrt(20*(dorisGraphData$N_subgroup/max(dorisGraphData$N_overall))/pi),
+      cex = sqrt(
+        20 * (dorisGraphData$N_subgroup / max(dorisGraphData$N_overall)) / pi
+      ),
       #cex = sqrt(dorisGraphData$N_subgroup /pi)/2,
-      col ="#1e90ffe2",
+      col = "#1e90ffe2",
       pch = 19
     )
- }
-   if (add_other_subgroups_logical) {
-     for(i in 1:sum(startsWith(names(dorisGraphData),"N_other_"))) {
+  }
+  if (add_other_subgroups_logical) {
+    for (i in 1:sum(startsWith(names(dorisGraphData), "N_other_"))) {
       lines(
         x = dorisGraphData$dose,
-        y = unlist(dorisGraphData[paste0("mean_other_",i)]),
+        y = unlist(dorisGraphData[paste0("mean_other_", i)]),
         type = "l",
         col = "#a6baaf60",
         lwd = 2,
         lty = 2,
         pch = 16
       )
-        points(
-          x = dorisGraphData$dose,
-          y = unlist(dorisGraphData[paste0("mean_other_",i)]),
-          cex = sqrt(20*(unlist(dorisGraphData[paste0("N_other_",i)])/max(dorisGraphData$N_overall))/pi),
-          #cex= sqrt(unlist(dorisGraphData[paste0("N_other_",i)]) /pi)/2,
-          col ="#a6baaf60",
-          pch = 19
-        )
-      }
+      points(
+        x = dorisGraphData$dose,
+        y = unlist(dorisGraphData[paste0("mean_other_", i)]),
+        cex = sqrt(
+          20 *
+            (unlist(dorisGraphData[paste0("N_other_", i)]) /
+              max(dorisGraphData$N_overall)) /
+            pi
+        ),
+        #cex= sqrt(unlist(dorisGraphData[paste0("N_other_",i)]) /pi)/2,
+        col = "#a6baaf60",
+        pch = 19
+      )
     }
+  }
 
-    if (add_complement_logical) {
-         lines(
-          x = dorisGraphData$dose,
-          y = dorisGraphData$mean_complement,
-          type = "l",
-          col = "#08cf86e2",
-          lwd = 3,
-          lty = 1,
-          pch = 16
-        )
-        points(
-          x = dorisGraphData$dose,
-          y = dorisGraphData$mean_complement,
-          cex = sqrt(20*(dorisGraphData$N_complement/max(dorisGraphData$N_overall))/pi),
-          #cex= sqrt(dorisGraphData$N_complement /pi)/2,
-          col ="#08cf86e2",
-          pch = 19
-        )
-    }
+  if (add_complement_logical) {
+    lines(
+      x = dorisGraphData$dose,
+      y = dorisGraphData$mean_complement,
+      type = "l",
+      col = "#08cf86e2",
+      lwd = 3,
+      lty = 1,
+      pch = 16
+    )
+    points(
+      x = dorisGraphData$dose,
+      y = dorisGraphData$mean_complement,
+      cex = sqrt(
+        20 * (dorisGraphData$N_complement / max(dorisGraphData$N_overall)) / pi
+      ),
+      #cex= sqrt(dorisGraphData$N_complement /pi)/2,
+      col = "#08cf86e2",
+      pch = 19
+    )
+  }
 }
-

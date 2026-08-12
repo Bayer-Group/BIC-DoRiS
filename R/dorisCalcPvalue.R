@@ -4,18 +4,16 @@
 #' @param total_truth_val numeric value of total truth value
 
 dorisCalcPvalue <- function(
-    tmp_list,
-    truth_value
+  tmp_list,
+  truth_value
 ) {
-
   pval <- c()
   for (i in 1:length(truth_value)) {
-    if (!all(is.na(tmp_list$tv_df[i, ]))){
+    if (!all(is.na(tmp_list$tv_df[i, ]))) {
       pval[i] <- 1 - (ecdf(tmp_list$tv_df[i, ])(truth_value[i]))
     } else {
-     pval[i] <- NA
+      pval[i] <- NA
     }
   }
   pval
 }
-
