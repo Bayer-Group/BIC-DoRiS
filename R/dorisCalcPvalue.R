@@ -8,7 +8,7 @@ dorisCalcPvalue <- function(
   truth_value
 ) {
   pval <- c()
-  for (i in 1:length(truth_value)) {
+  for (i in seq_along(truth_value)) {
     if (!all(is.na(tmp_list$tv_df[i, ]))) {
       pval[i] <- 1 - (ecdf(tmp_list$tv_df[i, ])(truth_value[i]))
     } else {

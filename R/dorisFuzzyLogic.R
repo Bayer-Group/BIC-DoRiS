@@ -68,7 +68,7 @@ eq <- function(x, dn, dp) {
   ###   0 +-----/......+.....\-----
   ###          dn      0      dp
   ###
-  if (dn < 0 & dp > 0) {
+  if (dn < 0 && dp > 0) {
     ifelse(
       x <= dn,
       0,
@@ -97,8 +97,8 @@ truthValues <- function(x, p, d) {
   p <- unlist(strsplit(p, split = ""))
 
   if (
-    n == length(p) &
-      n == length(d) &
+    n == length(p) &&
+      n == length(d) &&
       all(d > 0)
   ) {
     unlist(

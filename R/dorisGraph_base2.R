@@ -257,7 +257,7 @@ dorisGraph_base2 <- function(
 
   if (isTRUE(add_permutation_infos) && !is.null(tmp_list)) {
     df <- Reduce(rbind, lapply(tmp_list$mean_list, function(x) x[index, ]))
-    if (!any(is.na(df))) {
+    if (!anyNA(df)) {
       perm_ramp <- grDevices::colorRamp(c("#eeeeee", "#f5aa20"))
       col_df <- grDevices::rgb(
         perm_ramp(tmp_list$tv_df[index, ]),

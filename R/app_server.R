@@ -32,7 +32,7 @@ app_server <- function(input, output, session) {
   )
 
   shiny::observeEvent(c(input$select_Factors, input$select_targetVariable), {
-    if (!is.null(input$select_Factors) & input$select_targetVariable != "") {
+    if (!is.null(input$select_Factors) && input$select_targetVariable != "") {
       target_and_factors$val <- TRUE
     } else {
       target_and_factors$val <- FALSE
@@ -1096,8 +1096,8 @@ app_server <- function(input, output, session) {
   weights_reac <- reactiveValues(val = NULL)
   seq_alpha_reac <- reactive({
     if (
-      !is.null(input$seq_alpha_start) &
-        !is.null(input$seq_alpha_end) &
+      !is.null(input$seq_alpha_start) &&
+        !is.null(input$seq_alpha_end) &&
         !is.null(input$seq_alpha_length)
     ) {
       seq(
@@ -1112,8 +1112,8 @@ app_server <- function(input, output, session) {
 
   seq_delta_reac <- reactive({
     if (
-      !is.null(input$seq_delta_start) &
-        !is.null(input$seq_delta_end) &
+      !is.null(input$seq_delta_start) &&
+        !is.null(input$seq_delta_end) &&
         !is.null(input$seq_delta_length)
     ) {
       seq(
@@ -1129,7 +1129,7 @@ app_server <- function(input, output, session) {
   results_simulation2 <- shiny::reactiveValues(val = NULL)
 
   shiny::observeEvent(input$update_simulation2, {
-    if (!is.null(seq_delta_reac()) & !is.null(seq_alpha_reac())) {
+    if (!is.null(seq_delta_reac()) && !is.null(seq_alpha_reac())) {
       alpha_seq <- seq_alpha_reac()
 
       delta_seq <- seq_delta_reac()
@@ -1143,8 +1143,8 @@ app_server <- function(input, output, session) {
 
       ind <- 1
       withProgress(message = "Simulating...", value = 0, {
-        for (i in 1:length(alpha_seq)) {
-          for (j in 1:length(delta_seq)) {
+        for (i in seq_along(alpha_seq)) {
+          for (j in seq_along(delta_seq)) {
             tmp[, ind] <-
               dorisDistribution(
                 Factors = Factor_reac(),
@@ -1187,7 +1187,7 @@ app_server <- function(input, output, session) {
 
   shiny::observe({
     tmp <- c()
-    for (i in 1:length(levels(dose_reac()))) {
+    for (i in seq_along(levels(dose_reac()))) {
       tmp[i] <- input[[paste0("pattern_value", i, "-select")]]
     }
     pattern <- paste(tmp, sep = "", collapse = "")
@@ -1196,10 +1196,10 @@ app_server <- function(input, output, session) {
 
   shiny::observe({
     tmp <- c()
-    for (i in 1:length(levels(dose_reac()))) {
+    for (i in seq_along(levels(dose_reac()))) {
       tmp[i] <- input[[paste0("weights_value", i, "-select")]]
     }
-    if (any(is.na(tmp))) {
+    if (anyNA(tmp)) {
       NULL
     } else {
       weights_reac$val <- tmp

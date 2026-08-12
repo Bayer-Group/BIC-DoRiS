@@ -105,9 +105,9 @@ calc_truth_values <- function(
     dim(Subgroup_means)[2]
   ))
 
-  for (j in 1:length(alltvmatr)) {
+  for (j in seq_along(alltvmatr)) {
     tmp <- c()
-    for (i in 1:ncol(alltvmatr[[j]])) {
+    for (i in seq_len(ncol(alltvmatr[[j]]))) {
       tmp <- c(
         tmp,
         alltvmatr[[j]][, i][which(
