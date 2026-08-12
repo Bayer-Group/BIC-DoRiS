@@ -408,7 +408,7 @@ app_server <- function(input, output, session) {
       calc_permutation_automatic()
     })
 
-    output$DT_eval <- DT::renderDataTable({
+    output$DT_eval <- DT::renderDT({
       #requirements
       shiny::req(doris_data())
       shiny::req(dose_reac())
@@ -545,7 +545,7 @@ app_server <- function(input, output, session) {
           filter = 'top',
           selection = 'single'
         ) %>%
-          formatStyle(
+          DT::formatStyle(
             'total truth values',
             backgroundColor = styleInterval(
               seq(0, 1, by = 0.05),
@@ -714,7 +714,7 @@ app_server <- function(input, output, session) {
     DT::datatable(
       round(tmp3, 3)
     ) %>%
-      formatStyle(
+      DT::formatStyle(
         'V2',
         target = "row",
         backgroundColor = styleEqual(c(1, 0), c('#c8ff9e', '#ffa1a4'))

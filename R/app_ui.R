@@ -531,7 +531,7 @@ app_ui <- function(request) {
                             "Number of Subjects",
                             shiny::column(
                               12,
-                              DT::dataTableOutput("overview_table"),
+                              DT::DTOutput("overview_table"),
                               style = "overflow-y: scroll;overflow-x: scroll;"
                             )
                           ),
@@ -539,7 +539,7 @@ app_ui <- function(request) {
                             "Subgroup means",
                             shiny::column(
                               12,
-                              DT::dataTableOutput("SGM"),
+                              DT::DTOutput("SGM"),
                               style = "overflow-y: scroll;overflow-x: scroll;"
                             )
                           ),
@@ -547,7 +547,7 @@ app_ui <- function(request) {
                             "Diff. Subgroup means & clinical trial means",
                             shiny::column(
                               12,
-                              DT::dataTableOutput("DSC"),
+                              DT::DTOutput("DSC"),
                               style = "overflow-y: scroll;overflow-x: scroll;"
                             )
                           )
@@ -557,7 +557,7 @@ app_ui <- function(request) {
                         "Evaluation",
                         shiny::column(
                           12,
-                          DT::dataTableOutput("DT_eval"),
+                          DT::DTOutput("DT_eval"),
                           style = "overflow-y: scroll;overflow-x: scroll;"
                         )
                       )
