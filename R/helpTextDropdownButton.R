@@ -2,6 +2,7 @@
 #'
 #' @param id identifier name
 #' @param text help text
+#' @param right logical, whether to align the dropdown to the right
 
 helpTextDropdownButton <- function(id, text, right) {
   shinyWidgets::dropdownButton(

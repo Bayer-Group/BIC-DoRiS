@@ -1,5 +1,9 @@
 # DoRiS - Dose Response in Subgroups
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Bayer-Group/BIC-DoRiS/actions/workflows/R-CMD-check.yaml/badge.svg)
+<!-- badges: end -->
+
 ### Intention
 One dose fits all? Not necessarily! There might not always be a single dose 
 level that is adequately safe and effective in all patients. For some drugs 
@@ -126,7 +130,7 @@ All needed packages are loaded automatically by the app. For a reason unknown un
 
 ### Download test data
 
-Go into directory "data" and download file "dorisExampleData.csv" which includes simulated data. The first 4 records are:
+Go into directory "inst/extdata" and download file "dorisExampleData.csv" which includes simulated data. The first 4 records are:
 ```
 bmi,age,race,sex,type,dose,target
 low BMI,<40 years,White,Female,Acute disease,0,0.0526818366

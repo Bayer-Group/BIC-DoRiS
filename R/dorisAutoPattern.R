@@ -3,10 +3,15 @@
 #' @param Factors data frame with factors in columns
 #' @param dose vector with dose levels
 #' @param targetVariable vector with target variable (binary or metric)
-#' @param pattern vector to specify pattern of differences
 #' @param delta vector with fuzzy logic threshold values
-#' @param pattern_list vector with possible patterns in the form of e.g."=>>>="
 #' @param method method used to calculate best fitting pattern
+#' @param nperm number of permutations
+#' @param sampleseed seed for sampling in permutations
+#' @param pattern_choice character, either "automatic" or "manual" pattern selection
+#' @param pattern vector to specify pattern of differences
+#' @param perform_perm logical, whether to perform permutation testing
+#' @param weights numeric vector of weights for the "Weighted Mean" method
+#' @param compare_pattern character, either "overall" or "subgroup complement"
 
 dorisAutoPattern <- function(
   Factors,

@@ -10,6 +10,8 @@ helpTextDropdownButton(id, text, right)
 \item{id}{identifier name}
 
 \item{text}{help text}
+
+\item{right}{logical, whether to align the dropdown to the right}
 }
 \description{
 helper function for helptext in doris app

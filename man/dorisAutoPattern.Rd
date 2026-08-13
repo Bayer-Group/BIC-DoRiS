@@ -30,9 +30,19 @@ dorisAutoPattern(
 
 \item{method}{method used to calculate best fitting pattern}
 
+\item{nperm}{number of permutations}
+
+\item{sampleseed}{seed for sampling in permutations}
+
+\item{pattern_choice}{character, either "automatic" or "manual" pattern selection}
+
 \item{pattern}{vector to specify pattern of differences}
 
-\item{pattern_list}{vector with possible patterns in the form of e.g."=>>>="}
+\item{perform_perm}{logical, whether to perform permutation testing}
+
+\item{weights}{numeric vector of weights for the "Weighted Mean" method}
+
+\item{compare_pattern}{character, either "overall" or "subgroup complement"}
 }
 \description{
 Calculates best fitting pattern
