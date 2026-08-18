@@ -120,13 +120,7 @@ calc_best_pattern <- function(
     if (!anyNA(y)) {
       data.frame(
         best_pattern = paste(
-          rownames(y)[
-            apply(y, 2, function(x) {
-              unlist(which(
-                !is.na(suppressWarnings(match(x, max(x, na.rm = TRUE))))
-              ))
-            })
-          ],
+          rownames(y)[apply(y, 2, which.max)],
           collapse = ""
         )
       )
@@ -135,6 +129,8 @@ calc_best_pattern <- function(
     }
   })
   best_pattern_and_truthValues <- do.call("rbind", best_pattern_and_truthValues)
+  # Use row names used by mean_list with levels_and_pattern.
+  rownames(best_pattern_and_truthValues) <- row.names(Subgroup_differences)
 
   return(best_pattern_and_truthValues)
 }
