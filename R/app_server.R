@@ -433,30 +433,47 @@ app_server <- function(input, output, session) {
         }
       }
       if (!is.null(tmp_test)) {
-        rownames(tmp_test$mean_list[[1]])
-
-        tmp3_test <- as.data.frame(
-          cbind(
-            paste0(rownames(tmp_test$mean_list[[1]])),
-            round(tmp_test$tv_df, 3),
-            round(tmp_test$tv_list[[1]], 3)
+        # Align row names with mean_list and with levels_and_pattern
+        rn_eval <- rownames(tmp_test$mean_list[[1]])
+        dose_cols <- paste0(
+          "dose : ",
+          round(as.numeric(levels(dose_reac())), 4)
+        )
+        dose_cols_perm <- paste0("dose : ", levels(dose_reac()))
+        if (input$pattern_choice == "automatic") {
+          # Show chosen best pattern per subgroup when mode is automatic
+          bp_col <- as.character(
+            tmp_test$levels_and_pattern[rn_eval, "best_pattern", drop = TRUE]
           )
-        )
-        colnames(tmp3_test) <- c(
-          "subgroups:levels",
-          "total truth values",
-          paste0("dose : ", round(as.numeric(levels(dose_reac())), 4))
-        )
+        }
 
-        if (input$perform_permutation) {
-          if (!is.null(tmp_test2)) {
-            pval <- dorisCalcPvalue(
-              tmp_list = tmp_test2,
-              truth_value = tmp_test$tv_df
-            )
+        if (input$perform_permutation && !is.null(tmp_test2)) {
+          pval <- dorisCalcPvalue(
+            tmp_list = tmp_test2,
+            truth_value = tmp_test$tv_df
+          )
+          if (input$pattern_choice == "automatic") {
             tmp3_test <- as.data.frame(
               cbind(
-                paste0(rownames(tmp_test$mean_list[[1]])),
+                paste0(rn_eval),
+                bp_col,
+                round(pval, 4),
+                round(tmp_test$tv_df, 3),
+                round(tmp_test$tv_list[[1]], 3)
+              ),
+              stringsAsFactors = FALSE
+            )
+            colnames(tmp3_test) <- c(
+              "subgroups:levels",
+              "best pattern",
+              "p-value",
+              "total truth values",
+              dose_cols_perm
+            )
+          } else {
+            tmp3_test <- as.data.frame(
+              cbind(
+                paste0(rn_eval),
                 round(pval, 4),
                 round(tmp_test$tv_df, 3),
                 round(tmp_test$tv_list[[1]], 3)
@@ -466,7 +483,38 @@ app_server <- function(input, output, session) {
               "subgroups:levels",
               "p-value",
               "total truth values",
-              paste0("dose : ", levels(dose_reac()))
+              dose_cols_perm
+            )
+          }
+        } else {
+          if (input$pattern_choice == "automatic") {
+            tmp3_test <- as.data.frame(
+              cbind(
+                paste0(rn_eval),
+                bp_col,
+                round(tmp_test$tv_df, 3),
+                round(tmp_test$tv_list[[1]], 3)
+              ),
+              stringsAsFactors = FALSE
+            )
+            colnames(tmp3_test) <- c(
+              "subgroups:levels",
+              "best pattern",
+              "total truth values",
+              dose_cols
+            )
+          } else {
+            tmp3_test <- as.data.frame(
+              cbind(
+                paste0(rn_eval),
+                round(tmp_test$tv_df, 3),
+                round(tmp_test$tv_list[[1]], 3)
+              )
+            )
+            colnames(tmp3_test) <- c(
+              "subgroups:levels",
+              "total truth values",
+              dose_cols
             )
           }
         }
@@ -814,15 +862,41 @@ app_server <- function(input, output, session) {
         return(NULL)
       }
 
+      # Call evaluation and permutation before preprocessing so graph data can use the same results
+      if (input$pattern_choice == "automatic") {
+        tmp_list <- calc_evaluation_automatic()
+        tmp_list2 <- calc_permutation_automatic()
+      } else {
+        tmp_list <- calc_evaluation_manual()
+        tmp_list2 <- calc_permutation_manual()
+      }
+
+      # Use best pattern for automatic pattern
+      # (previously truth-value backgrounds reflected pattern_reac)
+      pattern_for_graph <- pattern_reac$val
+      if (input$pattern_choice == "automatic" && !is.null(tmp_list)) {
+        rmean <- rownames(tmp_list$mean_list[[1]])
+        idx_pat <- which(paste0(fac1, ": ", lev1) == rmean)
+        if (length(idx_pat) == 1L) {
+          bp <- tmp_list$levels_and_pattern[
+            idx_pat,
+            "best_pattern",
+            drop = TRUE
+          ]
+          if (!is.na(bp) && nzchar(as.character(bp))) {
+            pattern_for_graph <- as.character(bp)
+          }
+        }
+      }
       dorisGraphData <- doris_preprocessGraph(
         Factors = Factor_reac,
-        dose = doris_data()$dose,
+        dose = dose_reac(), #Use same dose factor as evaluation to avoid conflicts
         targetVariable = targetVariable_reac,
         factor_selected = fac1,
         subgroup_selected = lev1,
         factor_selected2 = fac2,
         subgroup_selected2 = lev2,
-        pattern = pattern_reac$val,
+        pattern = pattern_for_graph,
         delta = input$delta
       )
 
@@ -837,13 +911,6 @@ app_server <- function(input, output, session) {
       fac1 <- factors_and_levels()[1]
       lev1 <- factors_and_levels()[2]
 
-      if (input$pattern_choice == "automatic") {
-        tmp_list <- calc_evaluation_automatic()
-        tmp_list2 <- calc_permutation_automatic()
-      } else {
-        tmp_list <- calc_evaluation_manual()
-        tmp_list2 <- calc_permutation_manual()
-      }
       if (!is.null(tmp_list)) {
         index <- which(
           paste0(fac1, ": ", lev1) == rownames(tmp_list$mean_list[[1]])

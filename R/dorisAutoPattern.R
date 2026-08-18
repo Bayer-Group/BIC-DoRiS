@@ -169,7 +169,8 @@ dorisAutoPattern <- function(
       list(
         "tv_df" = tmp_tv,
         "tv_list" = tmp_tv_list,
-        "mean_list" = tmp_mean_list
+        "mean_list" = tmp_mean_list,
+        "levels_and_pattern" = levels_and_pattern
       )
     )
   }

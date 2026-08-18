@@ -1,7 +1,7 @@
 Package: doris
 Type: Package
 Title: Dose response in subgroups
-Version: 0.0.3
+Version: 0.0.4
 Author: Frauke Friedrichs, Steffen Jeske
 Maintainer: Bodo Kirsch <bodo.kirsch@bayer.com>
 Description: This shiny App enables interactive exploration of dose response in different subgroups. 
@@ -22,7 +22,8 @@ Imports:
     config,
     rlang,
     haven,
-    plyr
+    plyr,
+    tibble
 NeedsCompilation: no
 Depends: 
     R (>= 4.1)
@@ -38,3 +39,4 @@ Suggests:
 Language: en-US
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0
+RoxygenNote: 7.3.3

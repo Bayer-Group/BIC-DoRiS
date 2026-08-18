@@ -52,7 +52,9 @@ dorisGraph_base2(
 
 \item{points_data}{raw data points}
 
-\item{pattern_choice_auto}{best fitting pattern}
+\item{pattern_choice_auto}{retained for compatibility;
+truth-value backgrounds always follow \code{tmp$pattern} from preprocessing
+(manual entry or automatic best pattern for the selected subgroup).}
 
 \item{add_permutation_infos}{logical for permutation infos}
 
